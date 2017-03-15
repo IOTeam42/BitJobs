@@ -87,3 +87,19 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# JetBrains IDE
+.idea
+
+# Ruby dependancies
+.bundle
+
+# SCSS precompiler
+.sass-cache
+
+# local settings for database
+local_settings.py
+
+# sqlite
+*.sqlite3
+*.sqlite
