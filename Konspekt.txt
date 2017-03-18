@@ -1,0 +1,30 @@
+Funkcjonalności 1 wersji:
+- Rejetracja
+- Dodawanie i obsługa zleceń
+- Przepływ pieniędzy przez stronę
+- Tagi i wyszukiwarka zleceń
+- Część z oferowanych BTC jest pobieranych jako opłata
+
+Potencjane funkcjonalności ver.2:
+- Panel admina
+- Wpłata i wypłata BTC
+- System plusów i mimusów z wykonanych i zgłoszonych ofert
+
+Usecase:
+1. Wpłacam bitcoiny(ver.2)
+2. Tworzę zgłoszenie i oferuję za nie 0.01BTC, które są pobierane z mojego konta
+3. Ktoś zgłasza chęć do wykonania zlecenia
+4. Przyjmuję któregoś kandydata
+5. Zamyka się możliwość zgłaszania chęci wykonania zlecenia
+6. Ktoś dotarcza mi to czego oczekiwałem
+7. Ten ktoś dostaje pieniądze
+
+Otwarte problemy:
+- podział pracy
+- jak rozwiązujemy sytuację gdy sprzedawca i kupiec się nie dogadują
+
+Potencjalne wydzielone części:
+- backend
+- frontend
+- testy i przydładowe użycie do sprawozdania
+- sprawozdanie, plakat
