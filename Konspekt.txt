@@ -6,7 +6,7 @@ Funkcjonalności 1 wersji:
 - Część z oferowanych BTC jest pobieranych jako opłata
 
 Potencjane funkcjonalności ver.2:
-- Panel admina
+- Panel admina(ilość BTC, otwartych zleceń)
 - Wpłata i wypłata BTC
 - System plusów i mimusów z wykonanych i zgłoszonych ofert
 
