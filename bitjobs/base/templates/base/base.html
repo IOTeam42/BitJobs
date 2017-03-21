@@ -1,0 +1,40 @@
+{% load compile_static %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BitJobs</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" type="text/css"
+            href="{% static 'base/stylesheets/base.scss'|compile %}">
+
+    {% block include %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div id="top">
+    <h1>BitJobs</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'registration' %}">Rejestracja</a></li>
+            <li><a href="{% url 'login' %}">Logowanie</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>

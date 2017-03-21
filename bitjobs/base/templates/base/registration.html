@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %}
+
+{% load render_bundle from webpack_loader %}
+
+{% block body %}
+    <div id="register">
+        {% render_bundle 'register' %}
+    </div>
+{% endblock %}
