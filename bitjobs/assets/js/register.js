@@ -1,24 +1,53 @@
-import React from 'react';
-import { render } from 'react-dom';
+var React = require('react')
+var ReactDOM = require('react-dom')
+
+var Col = require('react-bootstrap/lib/Col')
+var PageHeader = require('react-bootstrap/lib/PageHeader')
+var Row = require('react-bootstrap/lib/Row')
+var {connect} = require('react-redux')
+var {reduxForm} = require('redux-form')
+
+var DateInput = require('./DateInput')
+var FormField = require('./FormField')
+var LoadingButton = require('./LoadingButton')
+var StaticField = require('./StaticField')
+var TextInput = require('./TextInput')
+
+var {zeroTime} = require('./utils')
+
+var TODAY = zeroTime(new Date())
+
+var mapStateToProps = state => state
 
 
-const url = "/accounts_api/register/";
 
-
-const attributes = [
-    { type: "text", name: "username", required: true, label: "Login" },
-    { type: "password", name: "password", required: true, label: "Hasło" },
-    { type: "password", name: "password-again", required: true, label: "Hasło ponownie" },
-    { type: "email", name: "email", required: true, label: "Email" },
-];
-
-
-class Register extends React.Component {
+class RegisterForm extends React.Component {
     render() {
         return (
-            <form></form>
+            <form action="/" method="post">
+                <fieldset>
+                <div className="form-group">
+                    <label for="login">Login:</label>
+                    <input type="text" id="name" name="user_login"/>
+                </div>
+                <div className="form-group">
+                    <label for="password">Hasło:</label>
+                    <input type="password" id="password" name="user_password"/>
+                </div>
+                <div className="form-group">
+                    <label for="password-again">Powtórz hasło:</label>
+                    <input type="password" id="password-again" name="user_password_again"/>
+                </div>
+                <div className="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="user_email" />
+                </div>
+
+                <input type="submit" className="btn btn-primary" value="Zarejestruj" />
+                </fieldset>
+            </form>
         );
     }
 }
 
-render(<Register />, document.getElementById('register'));
+ReactDOM.render(<RegisterForm />, document.getElementById('register'))

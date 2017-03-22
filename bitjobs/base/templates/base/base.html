@@ -16,21 +16,19 @@
     <link rel="stylesheet" type="text/css"
             href="{% static 'base/stylesheets/base.scss'|compile %}">
 
-    {% block include %}
-    {% endblock %}
-
 </head>
 
 <body>
 
+<nav>
+    <ul>
+        <li><a href="{% url 'registration' %}">Rejestracja</a></li>
+        <li><a href="{% url 'login' %}">Logowanie</a></li>
+    </ul>
+</nav>
+
 <div id="top">
     <h1>BitJobs</h1>
-    <nav>
-        <ul>
-            <li><a href="{% url 'registration' %}">Rejestracja</a></li>
-            <li><a href="{% url 'login' %}">Logowanie</a></li>
-        </ul>
-    </nav>
 </div>
 
 {% block body %}
