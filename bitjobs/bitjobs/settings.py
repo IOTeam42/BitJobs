@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'registration_api',
     'static_precompiler',
     'webpack_loader',
+    'taggit',
+    'taggit_serializer',
     'base',
     'moneyflow',
     'bargainflow',

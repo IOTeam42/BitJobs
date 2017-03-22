@@ -11,3 +11,5 @@ djangorestframework==3.6.2
 django-webpack-loader==0.4.1
 -e git://github.com/mplaton1/django-registration-rest-framework.git#egg=django-registration-rest-framework
 django-static-precompiler==1.5
+django-taggit==0.22.0
+django-taggit-serializer==0.1.5
