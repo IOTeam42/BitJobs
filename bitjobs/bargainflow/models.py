@@ -19,7 +19,8 @@ from taggit.managers import TaggableManager
 class Commission(models.Model):
     COMMISSION_STATUS = (
         ('O', 'Opened'),
-        ('S', 'Started'),
+        ('B', 'Bidded'),
+        ('A', 'Accepted'),
         ('F', 'Finished')
     )
 

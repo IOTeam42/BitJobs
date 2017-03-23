@@ -6,6 +6,10 @@ from bargainflow.models import Commission, CommissionBid
 
 class CommissionSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField()
+    orderer = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = Commission
@@ -13,6 +17,11 @@ class CommissionSerializer(TaggitSerializer, serializers.ModelSerializer):
 
 
 class CommissionBidSerializer(serializers.ModelSerializer):
+    bidder = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = CommissionBid
         exclude = ('date_added',)
