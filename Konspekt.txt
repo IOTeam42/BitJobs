@@ -63,10 +63,10 @@ Przepływ informacji, odpowiedzialności modułów:
 -   CannotCreateOpinion:    error rzucany przez addOpinion
 
 Potencjalne wydzielone części:
-- Zlecenia:             Filip
-- Portfel:              Jarek
-- Opinie:               Kuba
-- Frontend(React):      Daniel
+- Zlecenia:     Filip
+- Portfel:      Jarek
+- Opinie:       Kuba
+- Frontend:     Daniel
 
 Dodatkowe dokumenty:
 - Plakat (1 strona w pdf).
