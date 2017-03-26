@@ -10,6 +10,8 @@ made by other users to perform given task
 
 from __future__ import unicode_literals
 
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -24,10 +26,12 @@ class Commission(models.Model):
         ('F', 'Finished')
     )
 
-    orderer = models.ForeignKey(User, null=False)
-    date_added = models.DateField(auto_now_add=True, null=False)
+    orderer = models.ForeignKey(User, null=False, related_name='orderer')
+    contractor = models.ForeignKey(User, null=True, related_name='contractor')
+    date_added = models.DateField(default=datetime.now(), null=False)
     description = models.TextField()
-    status = models.CharField(max_length=1, choices=COMMISSION_STATUS)
+    status = models.CharField(max_length=1, choices=COMMISSION_STATUS,
+                              default=COMMISSION_STATUS[0][0])
     # money field
 
     tags = TaggableManager()

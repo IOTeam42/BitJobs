@@ -6,10 +6,15 @@ from bargainflow import views
 
 router = DefaultRouter()
 
-router.register(r'commissions', views.CommissionViewSet)
-router.register(r'commission-bids', views.CommissionBidViewSet)
+router.register(r'commissions',
+                views.CommissionViewSet,
+                base_name='commission')
+
+router.register(r'commission-bids',
+                views.CommissionBidViewSet,
+                base_name='commission_bd')
 
 
 urlpatterns = [
-    url(r'^',include(router.urls)),
+    url(r'^', include(router.urls, namespace='bargainflow')),
 ]

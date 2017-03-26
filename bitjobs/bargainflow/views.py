@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from bargainflow.permissions import IsOwnerOrReadOnly
 from bargainflow.models import Commission, CommissionBid
