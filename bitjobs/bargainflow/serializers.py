@@ -13,7 +13,7 @@ class CommissionSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Commission
-        exclude = ('date_added', 'orderer', 'status')
+        exclude = ('date_added', 'orderer')
 
 
 class CommissionBidSerializer(serializers.ModelSerializer):

@@ -10,6 +10,8 @@ made by other users to perform given task
 
 from __future__ import unicode_literals
 
+from collections import defaultdict
+
 from datetime import datetime
 
 from django.db import models
@@ -25,6 +27,13 @@ class Commission(models.Model):
         ('A', 'Accepted'),
         ('F', 'Finished')
     )
+
+    VALID_TRANSITION = defaultdict(list, {
+        'O': ['B'],
+        'B': ['A'],
+        'A': ['F', 'B'],
+        'F': [],
+    })
 
     orderer = models.ForeignKey(User, null=False, related_name='orderer')
     contractor = models.ForeignKey(User, null=True, related_name='contractor')

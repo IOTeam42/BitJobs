@@ -61,7 +61,7 @@ class CommissionApiTest(TestCase):
     def test_create_commission_ok(self):
         user_ids = [user.id for user in User.objects.all()]
         data_dict = {'description': 'very important task',
-                     'status': 'F', 'tags': ['dark-net']}
+                     'tags': ['dark-net']}
 
         url = reverse('bargainflow:commission-list')
 
@@ -106,7 +106,7 @@ class CommissionApiTest(TestCase):
         c_id = commission.id
         data_dict = {'id': c_id, 'status': 'B'}
 
-        url = reverse('bargainflow:commission-list')
+        url = reverse('bargainflow:commission-detail', kwargs={'pk': c_id})
 
         self.client.login(username=CommissionApiTest.OTHER_USER_SECRET,
                           password=CommissionApiTest.OTHER_USER_SECRET)
@@ -114,9 +114,38 @@ class CommissionApiTest(TestCase):
         raw_response = self.client.patch(url, data_dict, format='json')
 
         self.assertEqual(raw_response.status_code,
-                         status.HTTP_405_METHOD_NOT_ALLOWED)
+                         status.HTTP_403_FORBIDDEN)
 
         self.client.logout()
 
     def test_update_wrong_state_transition(self):
-        pass
+
+        commission = Commission.objects.\
+            create(orderer=CommissionApiTest.AUTH_USER,
+                   description="Description", tags=[])
+        c_id = commission.id
+        data_dict = {'id': c_id}
+
+        url = reverse('bargainflow:commission-detail', kwargs={'pk': c_id})
+
+        self.client.login(username=CommissionApiTest.USER_SECRET,
+                          password=CommissionApiTest.USER_SECRET)
+
+        transitions = [('A', False), ('F', False), ('B', True),
+                       ('O', False), ('F', False), ('A', True),
+                       ('O', False), ('F', True)]
+
+        for (t, is_ok) in transitions:
+            data_dict['status'] = t
+            raw_response = self.client.patch(url,
+                                             data_dict,
+                                             format='json')
+
+            if is_ok:
+                self.assertEqual(raw_response.status_code,
+                                 status.HTTP_200_OK)
+            else:
+                self.assertEqual(raw_response.status_code,
+                                 status.HTTP_403_FORBIDDEN)
+
+        self.client.logout()
