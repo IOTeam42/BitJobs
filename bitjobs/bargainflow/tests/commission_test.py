@@ -15,7 +15,10 @@ class CommissionApiTest(TestCase):
 
     USERS_NUMBER = 10
     COMMISSIONS_NUMBER = 100
-    AUTH_USER = "testing"
+    AUTH_USER = None
+    OTHER_AUTH_USER = None
+    USER_SECRET = "testing"
+    OTHER_USER_SECRET = "forward-march"
 
     def setUp(self):
         users = [models(User).example()
@@ -27,9 +30,15 @@ class CommissionApiTest(TestCase):
                                    status=default_value).example()
                             for _ in range(CommissionApiTest.COMMISSIONS_NUMBER)]
 
-        User.objects.create_user(CommissionApiTest.AUTH_USER,
-                                 'testing@test.com',
-                                 CommissionApiTest.AUTH_USER)
+        CommissionApiTest.AUTH_USER = User.objects.create_user(
+                CommissionApiTest.USER_SECRET,
+                'testing@test.com',
+                CommissionApiTest.USER_SECRET)
+
+        CommissionApiTest.OTHER_AUTH_USER = User.objects.create_user(
+                CommissionApiTest.OTHER_USER_SECRET,
+                'testing@test.com',
+                CommissionApiTest.OTHER_USER_SECRET)
 
     def test_listing_commissions(self):
         url = reverse('bargainflow:commission-list')
@@ -56,8 +65,8 @@ class CommissionApiTest(TestCase):
 
         url = reverse('bargainflow:commission-list')
 
-        self.client.login(username=CommissionApiTest.AUTH_USER,
-                          password=CommissionApiTest.AUTH_USER)
+        self.client.login(username=CommissionApiTest.USER_SECRET,
+                          password=CommissionApiTest.USER_SECRET)
         raw_response = self.client.post(url, data_dict, format='json')
 
         self.assertEqual(raw_response.status_code, status.HTTP_201_CREATED)
@@ -65,7 +74,49 @@ class CommissionApiTest(TestCase):
         self.client.logout()
 
     def test_update_commission_status_ok(self):
-        pass
 
-    def test_update_commission_status_error(self):
+        commission = Commission.objects.\
+            create(orderer=CommissionApiTest.AUTH_USER,
+                   description="Description", tags=[])
+        c_id = commission.id
+        data_dict = {'id': c_id}
+
+        url = reverse('bargainflow:commission-detail', kwargs={'pk': c_id})
+
+        self.client.login(username=CommissionApiTest.USER_SECRET,
+                          password=CommissionApiTest.USER_SECRET)
+
+        transitions = ['B', 'A', 'B', 'A', 'F']
+
+        for t in transitions:
+            data_dict['status'] = t
+            raw_response = self.client.patch(url,
+                                             data_dict,
+                                             format='json')
+            self.assertEqual(raw_response.status_code,
+                             status.HTTP_200_OK)
+
+        self.client.logout()
+
+    def test_update_commission_status_wrong_auth(self):
+
+        commission = Commission.objects.\
+            create(orderer=CommissionApiTest.AUTH_USER,
+                   description="Description", tags=[])
+        c_id = commission.id
+        data_dict = {'id': c_id, 'status': 'B'}
+
+        url = reverse('bargainflow:commission-list')
+
+        self.client.login(username=CommissionApiTest.OTHER_USER_SECRET,
+                          password=CommissionApiTest.OTHER_USER_SECRET)
+
+        raw_response = self.client.patch(url, data_dict, format='json')
+
+        self.assertEqual(raw_response.status_code,
+                         status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        self.client.logout()
+
+    def test_update_wrong_state_transition(self):
         pass

@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
+class CommissionPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
         unsafe_methods = ['POST', 'PUT']
