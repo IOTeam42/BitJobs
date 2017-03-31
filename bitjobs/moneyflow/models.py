@@ -4,6 +4,7 @@ Module for storing data about user's money, payments and user's transaction hist
 from __future__ import unicode_literals
 
 from django.db import models, transaction
+from django.core import validators
 
 from bitjobs.settings import CURRENCIES
 
@@ -23,10 +24,10 @@ class Wallet(models.Model):
             CurrencyAccount.objects.create(currency=c, amount=0, wallet=self)
 
     def _currency_account_by_currency(self, currency):
-        return self.currencyaccount_set.filter(currency__exact=name).first()
+        return self.currencyaccount_set.filter(currency__exact=currency).first()
 
     def money_by_currency(self, currency:str):
-        if not valid_currency(name)
+        if not valid_currency(currency):
             raise ValueError("Invalid currency name: '%s'" % currency)
         return self._currency_account_by_currency(currency).amount
 
@@ -52,5 +53,5 @@ class Wallet(models.Model):
 # Unfortunately django-money does not allow selecting specific currency, so I'm rolling my own solution
 class CurrencyAccount(models.Model):
     currency = models.CharField(choices=CURRENCIES, max_length=3)
-    amount = models.DecimalField('amount', 'amount', 10, 2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[validators.MinValueValidator(0)], default=0)
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
