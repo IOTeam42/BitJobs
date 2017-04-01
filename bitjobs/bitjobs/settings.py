@@ -39,9 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_nose',
+    'rest_framework',
     'registration_api',
     'static_precompiler',
     'webpack_loader',
+    'taggit',
+    'taggit_serializer',
     'base',
     'moneyflow',
     'bargainflow',
@@ -150,6 +154,9 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'static_precompiler.finders.StaticPrecompilerFinder',
 ]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 
 if os.environ.get('heroku') is not None:
     import dj_database_url
