@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_nose',
+    'bootstrap3',
     'rest_framework',
     'registration_api',
     'static_precompiler',

@@ -16,15 +16,35 @@
     <link rel="stylesheet" type="text/css"
             href="{% static 'base/stylesheets/base.scss'|compile %}">
 
+    {% block include %}
+    {% endblock %}
+
 </head>
 
 <body>
 
 <nav>
-    <ul>
-        <li><a href="{% url 'registration' %}">Rejestracja</a></li>
-        <li><a href="{% url 'login' %}">Logowanie</a></li>
-    </ul>
+    <div class="navWide">
+        <ul>
+            <li><a href="{% url 'registration_register' %}">Rejestracja</a></li>
+            <li><a href="{% url 'auth_login' %}">Logowanie</a></li>
+            {% if user.is_authenthicated %}
+            <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
+            {% endif %}
+        </ul>
+
+    </div>
+
+    <div class="navNarrow">
+        <i class="fa fa-bars fa-2x"></i>
+        <div class="narrowLinks hidden">
+            <li><a href="{% url 'registration_register' %}">Rejestracja</a></li>
+            <li><a href="{% url 'auth_login' %}">Logowanie</a></li>
+            {% if user.is_authenthicated %}
+            <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
+            {% endif %}
+        </div>
+    </div>
 </nav>
 
 <div id="top">
