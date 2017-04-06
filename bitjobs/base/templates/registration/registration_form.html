@@ -22,13 +22,15 @@
     {{ body.super }}
 
     <div id="register-form">
-      {% for field in form %}
-          {% blocktrans %}
-          {{ field.errors }}
-          {{ field.label_tag }}
-          {% endblocktrans %}
-          {% bootstrap_field field %}
-      {% endfor %}
+      <form action="{% url 'registration' %}" method="post" class="form">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% buttons %}
+              <button type="submit" class="btn btn-primary">
+                  {% bootstrap_icon "star" %} Submit
+              </button>
+          {% endbuttons %}
+      </form>
     </div>
 
 {% endblock %}
