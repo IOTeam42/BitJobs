@@ -1,7 +1,22 @@
 @import 'top-bar.scss';
 
+$footer-margin: 30px;
+
 
 footer {
   display: flex;
   flex-direction: row;
+
+  margin-top: $footer-margin;
+  margin-bottom: $footer-margin;
+  padding: 1em;
+
+  .flex-item {
+    flex: 1;
+    text-align: center;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
