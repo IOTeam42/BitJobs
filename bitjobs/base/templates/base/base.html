@@ -1,6 +1,8 @@
 {% load compile_static %}
 {% load static %}
 {% load fontawesome %}
+{% load bootstrap3 %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +26,8 @@
     {% endblock %}
 
     {% block include_js %}
-        <script type="text/javascript" src="{% static 'base/js/base.js' %}"></script>
+        <script type="text/javascript"
+            src="{% static 'base/js/base.js' %}"></script>
     {% endblock %}
 
 </head>
@@ -42,6 +45,15 @@
             {% if user.is_authenthicated %}
             <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
             {% endif %}
+            <li>
+                <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                        placeholder="Wyszukaj" name="srch-term"
+                        id="srch-term">
+                </div>
+                </form>
+            </li>
         </ul>
 
     </div>
