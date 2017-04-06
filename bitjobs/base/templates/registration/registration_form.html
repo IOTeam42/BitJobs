@@ -1,16 +1,34 @@
 {% extends 'base/base.html' %}
 
 {% load bootstrap3 %}
+{% load compile_static %}
+{% load static %}
+{% load i18n %}
 
 
-{% block include %}
-    {{ include.super }}
+{% block include_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" type="text/css"
+        href="{% static 'registration/stylesheets/registration_form.scss'|compile %}">
+{% endblock %}
+
+{% block include_js %}
+    {{ block.super }}
 {% endblock %}
 
 
 {% block body %}
     {{ body.super }}
 
-    {% bootstrap_form form %}
+    <div id="register-form">
+      {% for field in form %}
+          {% blocktrans %}
+          {{ field.errors }}
+          {{ field.label_tag }}
+          {% endblocktrans %}
+          {% bootstrap_field field %}
+      {% endfor %}
+    </div>
 
 {% endblock %}

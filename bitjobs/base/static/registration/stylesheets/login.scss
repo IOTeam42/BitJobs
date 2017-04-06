@@ -1,0 +1,7 @@
+@import 'margins.scss';
+
+#login-form {
+  @include form-margins(10vw);
+
+  text-align: center;
+}

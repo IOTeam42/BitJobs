@@ -1,4 +1,5 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from registration.backends.default.views import RegistrationView
 from base import views
 
 urlpatterns = [
@@ -12,4 +13,10 @@ urlpatterns = [
         name="commission-list"),
     url(r'^$', views.HomeView.as_view(),
         name="home"),
+    url(r'^oferta/', views.CommissionAddView.as_view(),
+        name="add-commission"),
+    # Fallback switching registration form
+    #url(r'^accounts/register/$', RegistrationView.as_view(form_class=)
+    #        , name='registration_register'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]

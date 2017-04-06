@@ -1,5 +1,6 @@
 {% load compile_static %}
 {% load static %}
+{% load fontawesome %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,27 +8,37 @@
     <meta charset="UTF-8">
     <title>BitJobs</title>
 
+    {% block include_css %}
+
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
 
+    {% fontawesome_stylesheet %}
+
     <link rel="stylesheet" type="text/css"
             href="{% static 'base/stylesheets/base.scss'|compile %}">
 
-    {% block include %}
+    {% endblock %}
+
+    {% block include_js %}
+        <script type="text/javascript" src="{% static 'base/js/base.js' %}"></script>
     {% endblock %}
 
 </head>
 
 <body>
 
+<div id="meta-top">
+
 <nav>
     <div class="navWide">
         <ul>
             <li><a href="{% url 'registration_register' %}">Rejestracja</a></li>
             <li><a href="{% url 'auth_login' %}">Logowanie</a></li>
+            <li><a href="{% url 'add-commission' %}">Dodaj ogłoszenie</a></li>
             {% if user.is_authenthicated %}
             <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
             {% endif %}
@@ -51,8 +62,15 @@
     <h1>BitJobs</h1>
 </div>
 
+</div>
+
 {% block body %}
 {% endblock %}
+
+
+<footer>
+
+</footer>
 
 </body>
 </html>

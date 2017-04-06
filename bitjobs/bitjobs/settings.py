@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_nose',
     'bootstrap3',
+    'registration',
+    'fontawesome',
     'rest_framework',
     'registration_api',
     'static_precompiler',
@@ -158,6 +160,15 @@ STATICFILES_FINDERS = [
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+STATIC_PRECOMPILER_COMPILERS = (
+    ('static_precompiler.compilers.SCSS', {
+        "sourcemap_enabled": False,
+        "compass_enabled": True,
+        "precision": 8,
+        "output_style": "compressed"
+    }),
+)
+
 
 if os.environ.get('heroku') is not None:
     import dj_database_url
@@ -169,5 +180,5 @@ else:
     try:
         from .local_settings import *
     except:
-        warnings.warn("local_settings.py file is not present. It could contain database settings for postgres")
-        
+        warnings.warn("local_settings.py file is not present. It "
+                      "could contain database settings for postgres")
