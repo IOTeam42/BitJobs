@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 
-from registration.views import RegistrationView
+from registration.backends.hmac.views import RegistrationView
 from registration.signals import user_registered
 
 from bargainflow.models import Commission
@@ -11,16 +11,7 @@ from bargainflow.forms import CommissionForm
 
 
 class RegisterView(RegistrationView):
-
     success_url = "/"
-
-    def register(self, form):
-        data = form.cleaned_data
-        username = data['username']
-        password = data['password1']
-        email = data['email']
-        user = User.objects.create_user(username, email, password)
-        return user
 
 
 class LoginView(TemplateView):

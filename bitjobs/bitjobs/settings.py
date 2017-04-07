@@ -169,6 +169,27 @@ STATIC_PRECOMPILER_COMPILERS = (
     }),
 )
 
+# Django registration settings
+
+ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_OPEN = True
+
+# end django registration
+
+# django email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+#end django email
+
 
 if os.environ.get('heroku') is not None:
     import dj_database_url

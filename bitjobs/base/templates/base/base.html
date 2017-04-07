@@ -45,7 +45,7 @@
             <li><a href="{% url 'auth_login' %}">Logowanie</a></li>
             <li><a href="{% url 'add-commission' %}">Dodaj ogłoszenie</a></li>
             <li><a href="/">Home</a></li>
-            {% if user.is_authenthicated %}
+            {% if user.is_authenticated %}
             <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
             {% endif %}
             <li>
@@ -66,7 +66,7 @@
         <div class="mobile-menu">
             <div><a href="{% url 'registration_register' %}">Rejestracja</a></div>
             <div><a href="{% url 'auth_login' %}">Logowanie</a></div>
-            {% if user.is_authenthicated %}
+            {% if user.is_authenticated %}
             <div><a href="{% url 'auth_logout' %}">Wyloguj</a></div>
             {% endif %}
             <div><a href="/">Home</a></div>
