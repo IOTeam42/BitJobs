@@ -2,6 +2,7 @@
 {% load static %}
 {% load fontawesome %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 
 <!DOCTYPE html>
@@ -45,20 +46,25 @@
 <nav>
     <div class="navWide">
         <ul>
-            <li><a href="{% url 'registration_register' %}">Rejestracja</a></li>
-            <li><a href="{% url 'auth_login' %}">Logowanie</a></li>
-            <li><a href="{% url 'add-commission' %}">Dodaj ogłoszenie</a></li>
-            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'registration_register' %}">
+              {% trans 'Registration' %}</a></li>
+            <li><a href="{% url 'auth_login' %}">
+              {% trans 'Login' %}</a></li>
+            <li><a href="{% url 'add-commission' %}">
+              {% trans 'Add offer' %}</a></li>
+            <li><a href="/">{% trans 'Homepage' %}</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
+            <li><a href="{% url 'auth_logout' %}">
+              {% trans 'Logout' %}</a></li>
             {% endif %}
             <li>
               <form action="{% url 'commission-dashboard' %}"
-                    method="get"
+                    method="GET"
                     class="navbar-form navbar-left"
                     id="site-search" role="search">
                   <div class="input-group">
-                      <input name="q" type="text" class="form-control" placeholder="Wyszukaj">
+                      <input name="q" type="text" class="form-control"
+                          placeholder="{% trans 'Search' %}">
                   </div>
                   <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-search">
@@ -73,12 +79,15 @@
     <div class="mobile-nav">
         <i class="fa fa-bars fa-2x" id="menu-btn"></i>
         <div class="mobile-menu">
-            <div><a href="{% url 'registration_register' %}">Rejestracja</a></div>
-            <div><a href="{% url 'auth_login' %}">Logowanie</a></div>
+            <div><a href="{% url 'registration_register' %}">
+              {% trans 'Registration' %}</a></div>
+            <div><a href="{% url 'auth_login' %}">
+              {% trans 'Login' %}</a></div>
             {% if user.is_authenticated %}
-            <div><a href="{% url 'auth_logout' %}">Wyloguj</a></div>
+            <div><a href="{% url 'auth_logout' %}">
+              {% trans 'Logout' %}</a></div>
             {% endif %}
-            <div><a href="/">Home</a></div>
+            <div><a href="/">{% trans 'Homepage' %}</a></div>
         </div>
     </div>
 </nav>
