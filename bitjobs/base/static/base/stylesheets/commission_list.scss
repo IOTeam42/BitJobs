@@ -1,0 +1,9 @@
+@import 'margins.scss';
+
+#content {
+    @include form-margins(10vw);
+
+    h3 {
+      text-align: center;
+    }
+}
