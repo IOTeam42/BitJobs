@@ -26,6 +26,8 @@
     {% endblock %}
 
     {% block include_js %}
+        <script src="http://code.jquery.com/jquery-latest.min.js"
+                type="text/javascript"></script>
         <script type="text/javascript"
             src="{% static 'base/js/base.js' %}"></script>
     {% endblock %}
@@ -59,15 +61,15 @@
 
     </div>
 
-    <div class="navNarrow">
-        <i class="fa fa-bars fa-2x"></i>
-        <div class="narrowLinks hidden">
-            <li><a href="{% url 'registration_register' %}">Rejestracja</a></li>
-            <li><a href="{% url 'auth_login' %}">Logowanie</a></li>
+    <div class="mobile-nav">
+        <i class="fa fa-bars fa-2x" id="menu-btn"></i>
+        <div class="mobile-menu">
+            <div><a href="{% url 'registration_register' %}">Rejestracja</a></div>
+            <div><a href="{% url 'auth_login' %}">Logowanie</a></div>
             {% if user.is_authenthicated %}
-            <li><a href="{% url 'auth_logout' %}">Wyloguj</a></li>
+            <div><a href="{% url 'auth_logout' %}">Wyloguj</a></div>
             {% endif %}
-            <li><a href="/">Home</a></li>
+            <div><a href="/">Home</a></div>
         </div>
     </div>
 </nav>

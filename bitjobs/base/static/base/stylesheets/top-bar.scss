@@ -3,8 +3,12 @@
 /* variables */
 
 $text-menu-color: white;
+$menu-element-color: white;
 $text-logo-color: white;
 $top-background-color: black;
+
+$mobile-menu-width: 50vw;
+$mobile-menu-max-width: 150px;
 
 $nav-bar-height: 10vh;
 
@@ -39,15 +43,27 @@ nav {
         margin: 0 auto;
     }
 
-    .navNarrow i {
-        float: left;
+    #menu-btn {
+      color: $menu-element-color;
+    }
 
-        .narrowLinks a {
-            display: block;
-            float: left;
-            clear: left;
-            padding: 0.5em 0;
+    .mobile-nav {
+      position: absolute;;
+      .mobile-menu {
+        div {
+          flex: 1;
+          padding: 1em;
+          background-color: $menu-element-color;
+          border: 1px solid $top-background-color;
+          width: $mobile-menu-width;
+          max-width: $mobile-menu-max-width;
+          text-align: center;
         }
+
+        a:hover {
+          text-decoration: none;
+        }
+      }
     }
 
     ul {
@@ -78,7 +94,7 @@ nav {
 
         li:last-child {
           float: left;
-          margin-top: -0.5em; // Not the best thing in thw world
+          margin-top: -0.5em; // Not the best thing in the world
         }
     }
 }
@@ -87,12 +103,22 @@ nav {
     display: none;
 }
 
+.mobile-menu {
+    display: none;
+}
+
+.expand {
+    display: flex !important;
+    flex-direction: column;
+}
+
 @media (min-width: 800px) {
     nav .navWide {
         display: block;
     }
 
-    nav .navNarrow {
+    nav .mobile-nav {
         display: none;
     }
+
 }

@@ -16,15 +16,7 @@ $(document).ready(function() {
     });
 
 
-    // stuff below is not working, its late, will fix tomorrow
-    var navLinks = document.querySelector('.navNarrow');
-    var narrowLinks = document.querySelector('.narrowLinks');
-
-
-
-    function toggle() {
-        narrowLinks.classList.toggle('hidden');
-    };
-
-     navLinks.addEventListener('click', toggle);
+    $( '#menu-btn' ).click(function(){
+        $('.mobile-menu').toggleClass('expand')
+    })
 });
