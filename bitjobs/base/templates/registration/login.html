@@ -20,7 +20,7 @@
     {{ body.super }}
 
     <div id="login-form">
-      <form action="/url/to/submit/" method="post" class="form">
+      <form action="{% url 'login' %}" method="post" class="form">
           {% csrf_token %}
           {% bootstrap_form form %}
           {% buttons %}
