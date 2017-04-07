@@ -1,0 +1,8 @@
+Dziękujemy za rejestrację w BitJobs. Aby aktywować
+konto kliknij w link: {{site}}/accounts/activate/{{ activation_key }}/
+
+
+--------
+
+Pozdrawiamy,
+Administracja BitJobs
