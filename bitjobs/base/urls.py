@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^oferta/(?P<id>[0-9]+)$', views.CommissionView.as_view(),
         name="commission-detail"),
     url(r'^oferty/$', views.CommissionDashboardView.as_view(),
-        name="commission-list"),
+        name="commission-dashboard"),
     url(r'^$', views.HomeView.as_view(),
         name="home"),
     url(r'^oferta/', views.CommissionAddView.as_view(),

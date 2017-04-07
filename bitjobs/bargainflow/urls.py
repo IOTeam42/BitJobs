@@ -12,7 +12,7 @@ router.register(r'commissions',
 
 router.register(r'commission-bids',
                 views.CommissionBidViewSet,
-                base_name='commission_bd')
+                base_name='commission_bid')
 
 
 urlpatterns = [

@@ -1,17 +1,13 @@
+/* Commission endpoint url */
+var comm_url;
+
 $(document).ready(function() {
 
-    function search(commission_id) {
-      // here we have id of model and we need an url
-      window.location.href = 'TODO url';
-    }
 
     $(function() {
-      $("#bitjobs-search-input").autocomplete({
-          source: "{% url 'TODO' %}",
-          minLength: 2,
-          select: function(event, ui) {
-              search(ui.item.id);
-          }
+      $("#site-search").autocomplete({
+          source: comm_url,
+          minLength: 3,
       });
     });
 
