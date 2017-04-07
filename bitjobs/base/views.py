@@ -32,7 +32,10 @@ class HomeView(TemplateView):
 
 
 class CommissionDashboardView(ListView):
+    template_name = "base/commission_list.html"
     model = Commission
+    context_object_name = "comm_list"
+    paginate_by = 10
 
 
 class CommissionView(DetailView):

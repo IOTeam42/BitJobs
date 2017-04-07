@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+{% load compile_static %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block include_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" type="text/css"
+            href="{% static 'base/stylesheets/commission_list.scss'|compile %}">
+{% endblock %}
+
+{% block include_js %}
+    {{ block.super }}
+{% endblock %}
+
+{% block body %}
+    <div id="content">
+        {% if comm_list %}
+            <table id="commisions">
+                {% for comm in comm_list %}
+                    <tr>
+                        <td>{{ comm.description }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            {% if is_paginated %}
+                <div class="pagination">
+                  <span class="page-links">
+                    {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                      <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                      </span>
+                      {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                      {% endif %}
+                  </span>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <h3>Brak zleceń do wyświetlenia</h3>
+        {% endif %}
+    </div>
+{% endblock %}
