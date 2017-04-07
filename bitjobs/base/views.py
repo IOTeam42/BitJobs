@@ -24,7 +24,7 @@ class RegisterView(RegistrationView):
 
 
 class LoginView(TemplateView):
-    template_name = "base/templates/registration/login.html"
+    template_name = "registration/login.html"
 
 
 class HomeView(TemplateView):
@@ -44,4 +44,5 @@ class CommissionAddView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommissionAddView, self).get_context_data(**kwargs)
-        context['commission-form'] = CommissionForm()
+        context['form'] = CommissionForm()
+        return context

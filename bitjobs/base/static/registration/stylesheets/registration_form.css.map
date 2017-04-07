@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,cAAe;ECAb,WAAW,EDCW,IAAI;ECA1B,YAAY,EDAU,IAAI;ECC1B,UAAU,EAAE,KAAK;EAEjB,KAAK,EAAE,IAAmB;EDD1B,UAAU,EAAE,MAAM",
+"sources": ["registration_form.scss","../../base/stylesheets/margins.scss"],
+"names": [],
+"file": "registration_form.css"
+}

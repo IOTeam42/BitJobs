@@ -1,4 +1,4 @@
-@import 'margins.scss';
+@import '../../base/stylesheets/margins';
 
 #login-form {
   @include form-margins(10vw);
