@@ -14,6 +14,8 @@ urlpatterns = [
         name="home"),
     url(r'^oferta/', views.CommissionAddView.as_view(),
         name="add-commission"),
+    url(r'^bid/', views.CommissionBidView.as_view(),
+        name="commission-bid"),
     url(r'^500/', views.Error500View.as_view(),
         name="error-500"),
     url(r'^403/', views.Error403View.as_view(),

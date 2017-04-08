@@ -48,9 +48,13 @@ class Commission(models.Model):
 
     tags = TaggableManager(_("Tags"))
 
+    @property
+    def commission_bids(self):
+        return CommissionBid.objects.filter(commission=self)
+
 
 class CommissionBid(models.Model):
     commission = models.ForeignKey(Commission, models.CASCADE, null=False)
     bidder = models.ForeignKey(User, models.CASCADE)
     date_added = models.DateField(auto_now_add=True, null=False)
-    bidder_comment = models.TextField()
+    bidder_comment = models.TextField(_("Comment"))
