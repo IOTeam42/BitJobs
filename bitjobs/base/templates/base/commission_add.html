@@ -21,7 +21,7 @@
 
 {% if user.is_authenticated %}
   <div id="commission-form">
-    <form action="{% url 'add-commission' %}" method="post" class="form">
+    <form action="{% url 'add-commission' %}?next=/" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}

@@ -111,3 +111,9 @@ bundles
 
 # Django project specific
 staticfiles
+
+# scss preprocessing
+
+*.css
+*.css.map
+

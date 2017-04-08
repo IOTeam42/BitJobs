@@ -6,7 +6,7 @@ from base import views
 urlpatterns = [
     url(r'^rejestracja/', views.RegisterView.as_view(),
         name="registration"),
-    url(r'^oferta/(?P<id>[0-9]+)$', views.CommissionView.as_view(),
+    url(r'^oferta/(?P<pk>[0-9]+)$', views.CommissionView.as_view(),
         name="commission-detail"),
     url(r'^oferty/$', views.CommissionDashboardView.as_view(),
         name="commission-dashboard"),

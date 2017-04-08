@@ -30,7 +30,7 @@
                     </tr>
                 {% for comm in comm_list %}
                     <tr>
-                        <td> <a href="{% url 'error-404' %}">TODO NAME</a></td>
+                        <td> <a href="{% url 'commission-detail' comm.id %}">TODO NAME</a></td>
                         <td>{{ comm.description }}</td>
                         <td>
                             {% for tag in comm.tags.names %}
