@@ -3,7 +3,6 @@ var comm_url;
 
 $(document).ready(function() {
 
-
     $(function() {
       $("#site-search").autocomplete({
           source: comm_url,
