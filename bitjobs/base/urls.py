@@ -14,6 +14,12 @@ urlpatterns = [
         name="home"),
     url(r'^oferta/', views.CommissionAddView.as_view(),
         name="add-commission"),
+    url(r'^500/', views.Error500View.as_view(),
+        name="error-500"),
+    url(r'^403/', views.Error403View.as_view(),
+        name="error-403"),
+    url(r'^404/', views.Error404View.as_view(),
+        name="error-404"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts_auth/', include('django.contrib.auth.urls')),
 ]
