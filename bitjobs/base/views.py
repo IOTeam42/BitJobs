@@ -2,12 +2,11 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
-from django.contrib.auth.models import User
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from registration.backends.hmac.views import RegistrationView
-from registration.signals import user_registered
 
 from bargainflow.models import Commission
 from bargainflow.forms import CommissionForm, CommissionBidForm
@@ -30,6 +29,16 @@ class CommissionDashboardView(ListView):
     model = Commission
     context_object_name = "comm_list"
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Commission.objects.all()
+        desc = self.request.GET.get('desc', None)
+
+        if desc is not None:
+            queryset = queryset.filter(Q(description__icontains=desc) |
+                                       Q(title__iexact=desc))
+
+        return queryset
 
 
 class CommissionView(DetailView):
