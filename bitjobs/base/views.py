@@ -1,7 +1,10 @@
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from registration.backends.hmac.views import RegistrationView
 from registration.signals import user_registered
@@ -31,21 +34,30 @@ class CommissionDashboardView(ListView):
 
 class CommissionView(DetailView):
     model = Commission
+    template_name = "base/commission_detail.html"
 
 
-class CommissionAddView(TemplateView):
+@method_decorator(login_required, name='dispatch')
+class CommissionAddView(FormView):
     template_name = "base/commission_add.html"
+    form_class = CommissionForm
+    success_url = "/"
 
-    def get_context_data(self, **kwargs):
-        context = super(CommissionAddView, self).get_context_data(**kwargs)
-        context['form'] = CommissionForm()
-        return context
+    def form_valid(self, form):
+        commission = form.save(commit=False)
+        commission.orderer = self.request.user
+        commission.save()
+        form.save_m2m()
+        return super(CommissionAddView, self).form_valid(form)
+
 
 class Error500View(TemplateView):
-    template_name = "error/500.html"
+    template_name = "500.html"
+
 
 class Error403View(TemplateView):
-    template_name = "error/403.html"
+    template_name = "403.html"
+
 
 class Error404View(TemplateView):
-    template_name = "error/404.html"
+    template_name = "404.html"

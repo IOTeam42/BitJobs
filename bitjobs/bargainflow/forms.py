@@ -7,7 +7,7 @@ from bargainflow.models import Commission
 class CommissionForm(forms.ModelForm):
     class Meta:
         model = Commission
-        fields = ['description', 'tags']
+        fields = ['title', 'description', 'tags']
 
         widgets = {
             'tags': TextInput(attrs={"class" : "tags"}),
