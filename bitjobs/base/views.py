@@ -10,7 +10,7 @@ from registration.backends.hmac.views import RegistrationView
 from registration.signals import user_registered
 
 from bargainflow.models import Commission
-from bargainflow.forms import CommissionForm
+from bargainflow.forms import CommissionForm, CommissionBidForm
 
 
 class RegisterView(RegistrationView):
@@ -35,6 +35,24 @@ class CommissionDashboardView(ListView):
 class CommissionView(DetailView):
     model = Commission
     template_name = "base/commission_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CommissionView, self).get_context_data(**kwargs)
+        context['commission_bids'] = context['object'].commission_bids
+        context['form'] = CommissionBidForm(initial={'commission': context['object']})
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class CommissionBidView(FormView):
+    form_class = CommissionBidForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        commission_bid = form.save(commit=False)
+        commission_bid.bidder = self.request.user
+        commission_bid.save()
+        return super(CommissionBidView, self).form_valid(form)
 
 
 @method_decorator(login_required, name='dispatch')

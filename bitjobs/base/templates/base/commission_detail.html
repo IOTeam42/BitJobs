@@ -3,6 +3,8 @@
 {% load compile_static %}
 {% load static %}
 {% load bootstrap3 %}
+{% load i18n %}
+
 
 {% block include_css %}
     {{ block.super }}
@@ -16,4 +18,33 @@
 {% endblock %}
 
 {% block body %}
+    {{ commission.title }}
+    {{ commission.description }}
+    {% for tag in commission.tags.names %}
+        <a href="{% url 'commission-dashboard' %}">#{{ tag }} </a>
+    {% endfor %}
+    <br/>
+
+    <ul>
+    {% for bid in commission_bids %}
+        <li>
+            {{ bid.bidder_comment }}
+        </li>
+        <li>
+            {{ bid.date_added }}
+        </li>
+    {% endfor %}
+    </ul>
+
+    <div id="commission-bid-form">
+        <form action="{% url 'commission-bid' %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "star" %} {% trans 'Submit' %}
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
 {% endblock %}
