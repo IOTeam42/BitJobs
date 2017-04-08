@@ -3,6 +3,7 @@
 {% load compile_static %}
 {% load static %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block include_css %}
     {{ block.super }}
@@ -19,9 +20,24 @@
     <div id="content">
         {% if comm_list %}
             <table id="commisions">
+                    <col width="5">
+                    <col width="90">
+                    <col width="5">
+                    <tr id="title">
+                        <td>{% trans 'Name' %}</td>
+                        <td>{% trans 'Description' %}</td>
+                        <td>{% trans 'Tags' %}</td>
+                    </tr>
                 {% for comm in comm_list %}
                     <tr>
+                        <td> <a href="{% url 'error-404' %}">TODO NAME</a></td>
                         <td>{{ comm.description }}</td>
+                        <td>
+                            {% for tag in comm.tags.names %}
+                            <a href="{% url 'commission-dashboard' %}">#{{ tag }} </a>
+                            {% endfor %}
+                        </td>
+                        <!--TODO name linking, tags as links to offers-->
                     </tr>
                 {% endfor %}
             </table>
