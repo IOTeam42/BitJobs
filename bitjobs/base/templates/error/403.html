@@ -1,6 +1,7 @@
-{% extends 'base/base.html' %}
+{% extends 'error/base-error.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block include_css %}
     {{ block.super }}
@@ -10,6 +11,6 @@
     {{ block.super }}
 {% endblock %}
 
-{% block body %}
-    <h1>rownież coś nie tak</h1>
+{% block error-msg %}
+    <h1>403 {% trans 'Forbidden' %}</h1>
 {% endblock %}

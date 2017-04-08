@@ -19,6 +19,7 @@
 
 {% block body %}
 
+{% if user.is_authenticated %}
   <div id="commission-form">
     <form action="{% url 'add-commission' %}" method="post" class="form">
         {% csrf_token %}
@@ -30,5 +31,8 @@
         {% endbuttons %}
     </form>
   </div>
+{% else %}
+<meta http-equiv="refresh" content="0; url={% url 'error-500' %}" />
+{% endif %}
 
 {% endblock %}

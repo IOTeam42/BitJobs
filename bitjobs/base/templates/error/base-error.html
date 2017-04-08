@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block include_css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block include_js %}
+    {{ block.super }}
+{% endblock %}
+
+{% block body %}
+    <div id="error-msg">
+        {% block error-msg %}
+        {% endblock %}
+    </div>
+{% endblock %}

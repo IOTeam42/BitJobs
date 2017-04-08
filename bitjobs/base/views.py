@@ -40,3 +40,12 @@ class CommissionAddView(TemplateView):
         context = super(CommissionAddView, self).get_context_data(**kwargs)
         context['form'] = CommissionForm()
         return context
+
+class Error500View(TemplateView):
+    template_name = "error/500.html"
+
+class Error403View(TemplateView):
+    template_name = "error/403.html"
+
+class Error404View(TemplateView):
+    template_name = "error/404.html"
