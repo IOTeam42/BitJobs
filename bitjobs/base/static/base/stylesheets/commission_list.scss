@@ -1,17 +1,13 @@
 @import 'margins.scss';
 
 #content {
-    @include form-margins(10vw);
-
-    h3 {
-      text-align: center;
-    }
+    @include content-margins(10vw);
 }
 
 $table-border-color: #6e6e6e;
 
 #commisions {
-    width: 100%;
+    width: 90%;
     margin: auto;
 
     tr {

@@ -18,33 +18,39 @@
 {% endblock %}
 
 {% block body %}
-    {{ commission.title }}
-    {{ commission.description }}
-    {% for tag in commission.tags.names %}
-        <a href="{% url 'commission-dashboard' %}?desc={{ tag }}">#{{ tag }} </a>
-    {% endfor %}
-    <br/>
+    <div id="content">
+        <div id="title">{{ commission.title }}</div>
+        <div id="desc">{% trans 'Description' %}: {{ commission.description }}</div>
+        <ul id="tags">
+        {% for tag in commission.tags.names %}
+            <li>
+            <a href="{% url 'commission-dashboard' %}?desc={{ tag }}">#{{ tag }} </a>
+            </li>
+        {% endfor %}
+        </ul>
 
-    <ul>
-    {% for bid in commission_bids %}
-        <li>
-            {{ bid.bidder_comment }}
-        </li>
-        <li>
-            {{ bid.date_added }}
-        </li>
-    {% endfor %}
-    </ul>
+        <ul id="bids">
+        {% for bid in commission_bids %}
+            <li>
+                <div id="bidder">{% trans 'Bidder' %}: {{ bid.bidder }}</div>
+                <div id="date">{% trans 'Date' %}: {{ bid.date_added }}</div>
+                <div id="comment">{% trans 'Comment' %}: {{ bid.bidder_comment }}</div>
+            </li>
+        {% endfor %}
+        </ul>
 
-    <div id="commission-bid-form">
-        <form action="{% url 'commission-bid' %}" method="post" class="form">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">
-                    {% bootstrap_icon "star" %} {% trans 'Submit' %}
-                </button>
-            {% endbuttons %}
-        </form>
+        {% if user.is_authenticated %}
+        <div id="commission-bid-form">
+            <form action="{% url 'commission-bid' %}" method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "star" %} {% trans 'Submit' %}
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}
