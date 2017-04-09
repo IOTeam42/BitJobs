@@ -21,7 +21,7 @@
     {{ commission.title }}
     {{ commission.description }}
     {% for tag in commission.tags.names %}
-        <a href="{% url 'commission-dashboard' %}">#{{ tag }} </a>
+        <a href="{% url 'commission-dashboard' %}?desc={{ tag }}">#{{ tag }} </a>
     {% endfor %}
     <br/>
 
