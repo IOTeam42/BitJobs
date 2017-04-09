@@ -1,13 +1,13 @@
-from django.conf.urls import url, include
-from registration.backends.default.views import RegistrationView
 from base import views
-
+from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^rejestracja/', views.RegisterView.as_view(),
         name="registration"),
     url(r'^oferta/(?P<pk>[0-9]+)$', views.CommissionView.as_view(),
         name="commission-detail"),
+    url(r'^oferta/(?P<pk>[0-9]+)/wybierz/(?P<bid_id>[0-9]+)$', views.commission_choose,
+        name='commission-choose'),
     url(r'^oferty/$', views.CommissionDashboardView.as_view(),
         name="commission-dashboard"),
     url(r'^$', views.HomeView.as_view(),

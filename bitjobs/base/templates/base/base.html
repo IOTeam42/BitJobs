@@ -13,20 +13,20 @@
 
     {% block include_css %}
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
 
         <link rel="stylesheet"
               href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-              type="text/css" media="all" />
+              type="text/css" media="all"/>
 
-    {% fontawesome_stylesheet %}
+        {% fontawesome_stylesheet %}
 
-    <link rel="stylesheet" type="text/css"
-            href="{% static 'base/stylesheets/base.scss'|compile %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'base/stylesheets/base.scss'|compile %}">
 
     {% endblock %}
 
@@ -38,10 +38,10 @@
                 type="text/javascript"></script>
 
         <script type="text/javascript">
-        var comm_url = "{% url 'autocomplete-commission' %}"
+            var comm_url = "{% url 'autocomplete-commission' %}"
         </script>
         <script type="text/javascript"
-            src="{% static 'base/js/base.js' %}"></script>
+                src="{% static 'base/js/base.js' %}"></script>
 
     {% endblock %}
 
@@ -51,64 +51,68 @@
 
 <div id="meta-top">
 
-<nav>
-    <div class="navWide">
-        <ul>
-            <li id="top"><h1>BitJobs</h1></li>
-            <li><a href="/">{% trans 'Homepage' %}</a></li>
+    <nav>
+        <div class="navWide">
+            <ul>
+                <li id="top"><h1>BitJobs</h1></li>
+                <li><a href="/">{% trans 'Homepage' %}</a></li>
 
-            <li><a href="{% url 'registration_register' %}">
-              {% trans 'Registration' %}</a></li>
+                {% if not user.is_authenticated %}
 
-            {% if not user.is_authenticated %}
-            <li><a href="{% url 'auth_login' %}">
-              {% trans 'Login' %}</a></li>
+                    <li><a href="{% url 'registration_register' %}">
+                        {% trans 'Registration' %}</a></li>
 
-            {% else %}
-            <li><a href="{% url 'add-commission' %}">
-              {% trans 'Add offer' %}</a></li>
+                    <li><a href="{% url 'auth_login' %}">
+                        {% trans 'Login' %}</a></li>
 
-            <li><a href="{% url 'auth_logout' %}">
-              {% trans 'Logout' %}</a></li>
-            {% endif %}
-            <li>
-              <form action="{% url 'commission-dashboard' %}"
-                    method="GET"
-                    class="navbar-form navbar-left"
-                    role="search">
-                  <div class="input-group">
-                      <input id="site-search"
-                             type="text" class="form-control"
-                             name="desc"
-                             placeholder="{% trans 'Search' %}">
-                  </div>
-                  <button type="submit" class="btn btn-default">
+                {% else %}
+                    <li><a href="{% url 'commission-dashboard' %}">
+                        {% trans 'All offers' %}</a></li>
+
+                    <li><a href="{% url 'add-commission' %}">
+                        {% trans 'Add offer' %}</a></li>
+
+                    <li><a href="{% url 'auth_logout' %}">
+                        {% trans 'Logout' %}</a></li>
+                {% endif %}
+                <li>
+                    <form action="{% url 'commission-dashboard' %}"
+                          method="GET"
+                          class="navbar-form navbar-left"
+                          role="search">
+                        <div class="input-group">
+                            <input id="site-search"
+                                   type="text" class="form-control"
+                                   name="desc"
+                                   placeholder="{% trans 'Search' %}">
+                        </div>
+                        <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-search">
                     </span>
-                  </button>
-              </form>
-            </li>
-        </ul>
+                        </button>
+                    </form>
+                </li>
+            </ul>
 
-    </div>
-
-    <div class="mobile-nav">
-        <i class="fa fa-bars fa-2x" id="menu-btn"></i>
-        <div class="mobile-menu">
-            <div><a href="{% url 'registration_register' %}">
-              {% trans 'Registration' %}</a></div>
-            <div><a href="{% url 'auth_login' %}">
-              {% trans 'Login' %}</a></div>
-            {% if user.is_authenticated %}
-            <div><a href="{% url 'auth_logout' %}">
-              {% trans 'Logout' %}</a></div>
-            {% endif %}
-            <div><a href="/">{% trans 'Homepage' %}</a></div>
         </div>
 
-    </div>
-    <div id="top-mobile"><h1>BitJobs</h1></div>
-</nav>
+        <div class="mobile-nav">
+            <i class="fa fa-bars fa-2x" id="menu-btn"></i>
+            <div class="mobile-menu">
+                <div><a href="{% url 'registration_register' %}">
+                    {% trans 'Registration' %}</a></div>
+                <div><a href="{% url 'auth_login' %}">
+                    {% trans 'Login' %}</a></div>
+                {% if user.is_authenticated %}
+                    <div><a href="{% url 'auth_logout' %}">
+                        {% trans 'Logout' %}</a></div>
+                {% endif %}
+                <div><a href="/">{% trans 'Homepage' %}</a></div>
+            </div>
+
+        </div>
+        <div id="top-mobile"><h1>BitJobs</h1></div>
+    </nav>
 
 </div>
 
@@ -118,10 +122,10 @@
 
 <footer>
     <div class="flex-item">
-      <h3>BitJobs</h3>
+        <h3>BitJobs</h3>
     </div>
     <div class="flex-item">
-      Email us at: xd@wp.pl
+        Email us at: xd@wp.pl
     </div>
 </footer>
 
