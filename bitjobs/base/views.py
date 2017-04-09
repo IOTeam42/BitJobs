@@ -36,9 +36,10 @@ class CommissionDashboardView(ListView):
 
         if desc is not None:
             queryset = queryset.filter(Q(description__icontains=desc) |
-                                       Q(title__iexact=desc))
+                                       Q(title__iexact=desc) |
+                                       Q(tags__name__in=[desc]))
 
-        return queryset
+        return queryset.distinct()
 
 
 class CommissionView(DetailView):
