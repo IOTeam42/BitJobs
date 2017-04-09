@@ -1,15 +1,14 @@
+from bargainflow.forms import CommissionForm, CommissionBidForm
+from bargainflow.models import Commission, CommissionBid
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.shortcuts import redirect, get_object_or_404, reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
-from django.db.models import Q
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-
+from django.views.generic.list import ListView
 from registration.backends.hmac.views import RegistrationView
-
-from bargainflow.models import Commission
-from bargainflow.forms import CommissionForm, CommissionBidForm
 
 
 class RegisterView(RegistrationView):
@@ -53,15 +52,30 @@ class CommissionView(DetailView):
         return context
 
 
+def commission_choose(request, pk, bid_id):
+    commission = get_object_or_404(Commission, pk=pk)
+    commission_bid = get_object_or_404(CommissionBid, pk=bid_id, commission=commission)
+    commission.contractor = commission_bid.bidder
+    commission.save()
+    return redirect('commission-detail', pk=pk)
+
+
 @method_decorator(login_required, name='dispatch')
 class CommissionBidView(FormView):
     form_class = CommissionBidForm
-    success_url = "/"
+
+    def __init__(self):
+        self.commission = None
+        super(CommissionBidView, self).__init__()
+
+    def get_success_url(self):
+        return reverse('commission-detail', kwargs={'pk': self.commission.id})
 
     def form_valid(self, form):
         commission_bid = form.save(commit=False)
         commission_bid.bidder = self.request.user
         commission_bid.save()
+        self.commission = commission_bid.commission
         return super(CommissionBidView, self).form_valid(form)
 
 
@@ -69,12 +83,19 @@ class CommissionBidView(FormView):
 class CommissionAddView(FormView):
     template_name = "base/commission_add.html"
     form_class = CommissionForm
-    success_url = "/"
+
+    def __init__(self):
+        self.commission = None
+        super(CommissionAddView, self).__init__()
+
+    def get_success_url(self):
+        return reverse('commission-detail', kwargs={'pk': self.commission.id})
 
     def form_valid(self, form):
         commission = form.save(commit=False)
         commission.orderer = self.request.user
         commission.save()
+        self.commission = commission
         form.save_m2m()
         return super(CommissionAddView, self).form_valid(form)
 
