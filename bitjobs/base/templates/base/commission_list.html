@@ -36,7 +36,7 @@
                         <td>{{ comm.description }}</td>
                         <td>
                             {% for tag in comm.tags.names %}
-                            <a href="{% url 'commission-dashboard' %}">#{{ tag }} </a>
+                            <a href="{% url 'commission-dashboard' %}?desc={{ tag }}">#{{ tag }} </a>
                             {% endfor %}
                         </td>
                         <!--TODO name linking, tags as links to offers-->
