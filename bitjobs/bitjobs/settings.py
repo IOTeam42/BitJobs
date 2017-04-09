@@ -157,6 +157,8 @@ STATICFILES_FINDERS = [
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 
 if os.environ.get('heroku') is not None:
     import dj_database_url
