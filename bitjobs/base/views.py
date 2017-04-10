@@ -32,7 +32,6 @@ class CommissionDashboardView(ListView):
     def get_queryset(self):
         queryset = Commission.objects.all()
         desc = self.request.GET.get('desc', None)
-
         if desc is not None:
             queryset = queryset.filter(Q(description__icontains=desc) |
                                        Q(title__iexact=desc) |

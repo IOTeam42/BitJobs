@@ -1,13 +1,13 @@
+from bargainflow.models import Commission, CommissionBid
 from django import forms
 from django.forms.widgets import TextInput
 from django.utils.translation import ugettext_lazy as _
-from bargainflow.models import Commission, CommissionBid
 
 
 class CommissionForm(forms.ModelForm):
     class Meta:
         model = Commission
-        fields = ['title', 'description', 'tags']
+        fields = ['title', 'description', 'tags', 'price']
 
         widgets = {
             'tags': TextInput(attrs={"class" : "tags"}),

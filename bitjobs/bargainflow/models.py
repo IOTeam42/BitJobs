@@ -11,16 +11,13 @@ made by other users to perform given task
 from __future__ import unicode_literals
 
 from collections import defaultdict
-
 from datetime import datetime
 
-from django.utils.translation import ugettext_lazy as _
-
-from django.db import models
 from django.contrib.auth.models import User
-
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from djmoney.models.fields import MoneyField
 from taggit.managers import TaggableManager
-
 
 class Commission(models.Model):
     COMMISSION_STATUS = (
@@ -44,6 +41,7 @@ class Commission(models.Model):
     description = models.TextField(_("Offer description"))
     status = models.CharField(max_length=1, choices=COMMISSION_STATUS,
                               default=COMMISSION_STATUS[0][0])
+    price = MoneyField(max_digits=10, decimal_places=2, default_currency='PLN')
     # money field
 
     tags = TaggableManager(_("Tags"))

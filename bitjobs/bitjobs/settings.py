@@ -219,8 +219,8 @@ else:
     try:
         from .local_settings import *
     except:
-
-# django-money configuration
-CURRENCIES = [('PLN', 'PLN'), ('USD', 'USD')]
         warnings.warn("local_settings.py file is not present. It "
                       "could contain database settings for postgres")
+# django-money configuration
+CURRENCIES = ['PLN', 'USD']
+CURRENCIES_CHOICE = [('PLN', 'PLN'), ('USD', 'USD')]
