@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block include_css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block include_js %}
+    {{ block.super }}
+{% endblock %}
+
+{% block body %}
+<a href="{% url 'commission-dashboard' %}">Site under costruction</a>
+{% endblock %}

@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_nose',
+    'bootstrap3',
+    'registration',
+    'fontawesome',
     'rest_framework',
     'registration_api',
     'static_precompiler',
@@ -58,6 +61,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -157,7 +161,59 @@ STATICFILES_FINDERS = [
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=bargainflow,moneyflow,opinions',
+]
+
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+STATIC_PRECOMPILER_COMPILERS = (
+    ('static_precompiler.compilers.SCSS', {
+        "sourcemap_enabled": False,
+        "compass_enabled": True,
+        "precision": 8,
+        "output_style": "compressed"
+    }),
+)
+
+# Django registration settings
+
+ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_OPEN = True
+
+# end django registration
+
+# django email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+# end django email
+
+# internationalization settings
+
+LANGUAGES = [
+    ('pl', 'Polski'),
+    ('en', 'English'),
+]
+
+TIME_ZONE = 'Europe/Warsaw'
+LANGUAGE_CODE = 'pl'
+
+LOCALE_PATHS = [
+    'locale',
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+# end internationalization settings
 
 
 if os.environ.get('heroku') is not None:

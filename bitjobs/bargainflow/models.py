@@ -14,6 +14,8 @@ from collections import defaultdict
 
 from datetime import datetime
 
+from django.utils.translation import ugettext_lazy as _
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -38,16 +40,21 @@ class Commission(models.Model):
     orderer = models.ForeignKey(User, null=False, related_name='orderer')
     contractor = models.ForeignKey(User, null=True, related_name='contractor')
     date_added = models.DateField(default=datetime.now(), null=False)
-    description = models.TextField()
+    title = models.CharField(_("Title"), max_length=40)
+    description = models.TextField(_("Offer description"))
     status = models.CharField(max_length=1, choices=COMMISSION_STATUS,
                               default=COMMISSION_STATUS[0][0])
     # money field
 
-    tags = TaggableManager()
+    tags = TaggableManager(_("Tags"))
+
+    @property
+    def commission_bids(self):
+        return CommissionBid.objects.filter(commission=self)
 
 
 class CommissionBid(models.Model):
     commission = models.ForeignKey(Commission, models.CASCADE, null=False)
     bidder = models.ForeignKey(User, models.CASCADE)
     date_added = models.DateField(auto_now_add=True, null=False)
-    bidder_comment = models.TextField()
+    bidder_comment = models.TextField(_("Comment"))

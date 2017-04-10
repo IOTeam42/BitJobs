@@ -3,55 +3,111 @@
 /* variables */
 
 $text-menu-color: white;
+$menu-element-color: white;
 $text-logo-color: white;
 $top-background-color: black;
 
-$nav-bar-height: 10vh;
+$mobile-menu-width: 50vw;
+$mobile-menu-max-width: 150px;
+
+$nav-bar-height: 5vh;
 
 /* end variables */
 
 
 #top {
-    height: 17vh;
-    background: black;
-    margin-top: 0;
-
-    h1 {
-
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-left: 3vw;
-        color: $text-logo-color;
-        text-align: center;
-    }
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 3vw;
+    color: $text-logo-color;
+    text-align: center;
 }
 
 nav {
     height: $nav-bar-height;
     background: $top-background-color;
+    padding-top: 0;
+    padding-bottom: 5em;
+    overflow: hidden;
 
-    ul {
-        margin: 0;
-        height: 100%;
-        list-style: none;
-
-        li {
-            float: left;
-            margin-right: 5vw;
-            height: 100%;
-            line-height: 10vh;
-            text-align: center;
-        }
-
-        li a {
-            text-decoration: none;
-            color: $text-menu-color;
-            text-align: center;
-        }
-
-        li a:hover {
-            text-decoration: none;
-            color: $text-menu-color;
+    .navWide {
+        display: none;
+        margin: 0 auto;
+        ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            align-items: center;
+            li {
+                margin: 0.5em;
+                a {
+                    display: block;
+                    padding: 1.5em;
+                    text-decoration: none;
+                    color: lavenderblush;
+                }
+                a:hover {
+                    background-color: #555;
+                    color: white;
+                }
+            }
         }
     }
+
+    #menu-btn {
+      color: $menu-element-color;
+    }
+
+    .mobile-nav {
+      position: absolute;
+      display: flex;
+      .mobile-menu {
+        div {
+          flex: 1;
+          padding: 1em;
+          background-color: $menu-element-color;
+          border: 1px solid $top-background-color;
+          width: $mobile-menu-width;
+          max-width: $mobile-menu-max-width;
+          text-align: center;
+        }
+
+        a:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    #top-mobile {
+      margin-right: 3vw;
+      h1 {
+        text-align: right;
+        color: $text-logo-color;
+      }
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.expand {
+    display: flex !important;
+    flex-direction: column;
+}
+
+@media (min-width: 1100px) {
+    nav .navWide {
+        display: block;
+    }
+
+    nav .mobile-nav {
+        display: none;
+    }
+
 }

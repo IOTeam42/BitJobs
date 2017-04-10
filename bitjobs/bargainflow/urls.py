@@ -12,9 +12,11 @@ router.register(r'commissions',
 
 router.register(r'commission-bids',
                 views.CommissionBidViewSet,
-                base_name='commission_bd')
+                base_name='commission_bid')
 
 
 urlpatterns = [
+    url(r'autocomplete-search', views.get_commissions,
+        name="autocomplete-commission"),
     url(r'^', include(router.urls, namespace='bargainflow')),
 ]

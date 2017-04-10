@@ -1,0 +1,32 @@
+@import 'margins.scss';
+
+#content {
+    @include content-margins(10vw);
+}
+
+$table-border-color: #6e6e6e;
+
+#commisions {
+    width: 90%;
+    margin: auto;
+
+    tr {
+        border: 1px solid $table-border-color;
+
+        td {
+            border: 1px solid $table-border-color;
+            padding: 1vw;
+            text-align: center;
+        }
+    }
+    tr:nth-child(odd) {
+        background-color: #cdcdcd;
+    }
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+    tr#title {
+        font-size: 150%;
+        text-decoration: solid;
+    }
+}
