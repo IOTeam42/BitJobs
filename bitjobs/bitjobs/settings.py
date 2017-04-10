@@ -222,6 +222,12 @@ if os.environ.get('heroku') is not None:
     DEBUG =  False
     ALLOWED_HOSTS = ['*']
     SECRET_KEY = os.environ.get('secret_key')
+
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = "thebitjobs@gmail.com"
+    EMAIL_HOST_PASSWORD = os.environ.get('gmail-email')
+    EMAIL_PORT = 587
 else:
     try:
         from .local_settings import *
