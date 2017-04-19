@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 
 from django.db import models, transaction
 from django.core import validators
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 from bitjobs.settings import CURRENCIES
 
@@ -62,3 +64,18 @@ class CurrencyAccount(models.Model):
 
     class Meta:
         unique_together = (("currency", "wallet"),)
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
+                                related_name='user_ext')
+    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE,
+                                  related_name='user_wallet')
+
+    def create_customer_data(sender, instance, created, **kwargs):
+        if created:
+            wallet = Wallet()
+            wallet.save()
+            Customer.objects.create(user=instance, wallet=wallet)
+
+    post_save.connect(create_customer_data, sender=User)
