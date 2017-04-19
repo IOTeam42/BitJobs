@@ -35,11 +35,11 @@
                     <div id="bidder">{% trans 'Bidder' %}: {{ bid.bidder }}</div>
                     <div id="date">{% trans 'Date' %}: {{ bid.date_added }}</div>
                     <div id="comment">{% trans 'Comment' %}: {{ bid.bidder_comment }}</div>
-                    {% if user == commission.orderer and commission.contrac %}
+                    {% if user == commission.orderer %}
                         <a href={% url 'commission-choose' pk=commission.id bid_id=bid.id %}>
                             {% trans 'Choose' %}</a>
                     {% endif %}
-                </li>/
+                </li>
             {% endfor %}
         </ul>
 

@@ -42,8 +42,6 @@ class Commission(models.Model):
     status = models.CharField(max_length=1, choices=COMMISSION_STATUS,
                               default=COMMISSION_STATUS[0][0])
     price = MoneyField(max_digits=10, decimal_places=2, default_currency='PLN')
-    # money field
-
     tags = TaggableManager(_("Tags"))
 
     @property
