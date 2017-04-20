@@ -40,6 +40,8 @@ class Commission(models.Model):
     orderer = models.ForeignKey(User, null=False, related_name='orderer')
     contractor = models.ForeignKey(User, null=True, related_name='contractor')
     date_added = models.DateField(default=datetime.now(), null=False)
+    bid = models.ForeignKey('CommissionBid', default=None,
+                            null=True, related_name='bid')
     title = models.CharField(_("Title"), max_length=40)
     description = models.TextField(_("Offer description"))
     status = models.CharField(max_length=1, choices=COMMISSION_STATUS,
