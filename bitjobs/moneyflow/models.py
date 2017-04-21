@@ -3,12 +3,13 @@ Module for storing data about user's money, payments and user's transaction hist
 
 from __future__ import unicode_literals
 
-from bitjobs.settings import CURRENCIES_CHOICE
-from django.core import validators
-from django.db import models, transaction
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from decimal import Decimal
 
+from bitjobs.settings import CURRENCIES_CHOICE
+from django.contrib.auth.models import User
+from django.core import validators
+from django.db import models
+from django.db.models.signals import post_save
 
 
 class CannotTransfer(Exception):
@@ -36,23 +37,19 @@ class Wallet(models.Model):
         return self._currency_account_by_currency(currency).amount
 
     # TODO: Shouldn't that go somewhere else?
-    def transfer(self, target, currency, quantity):
+    def change(self, currency, quantity):
         if not valid_currency(currency):
             raise ValueError("Invalid currency name '%s'" % currency)
 
+        quantity = Decimal(float(quantity))
         source_currency_account = self._currency_account_by_currency(currency)
         money = source_currency_account.amount
-        if money < quantity:
+        if money + quantity < 0:
             raise CannotTransfer(
                 "Insufficient money, needs %d %s, have only %d %s" % (quantity, currency, money, currency))
 
-        target_currency_account = target._currency_account_by_currency(currency)
-
-        with transaction.atomic():
-            target_currency_account.amount += quantity
-            target_currency_account.save()
-            source_currency_account.amount -= quantity
-            source_currency_account.save()
+        source_currency_account.amount += quantity
+        source_currency_account.save()
 
 
 # Unfortunately django-money does not allow selecting specific currency, so I'm rolling my own solution
@@ -70,7 +67,7 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,
                                 related_name='user_ext')
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE,
-                                  related_name='user_wallet')
+                               related_name='user_wallet')
 
     def create_customer_data(sender, instance, created, **kwargs):
         if created:

@@ -48,6 +48,11 @@
             <div id="bidder">{% trans 'Bidder' %}: {{ chosen_bid.bidder }}</div>
             <div id="date">{% trans 'Date' %}: {{ chosen_bid.date_added }}</div>
             <div id="comment">{% trans 'Comment' %}: {{ chosen_bid.bidder_comment }}</div>
+            {% if commission.status == 'F' %}
+                <h2>{% trans 'Done' %}</h2>
+            {% elif user == commission.orderer %}
+                <a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a>
+            {% endif %}
         {% endif %}
 
         {% if user.is_authenticated and user != commission.orderer and commission.contractor == None %}

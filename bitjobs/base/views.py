@@ -61,6 +61,7 @@ class CommissionView(DetailView):
         else:
             return CommissionBidForm(initial={'commission': commission})
 
+
 def commission_choose(request, pk, bid_id):
     commission = get_object_or_404(Commission, pk=pk)
     commission_bid = get_object_or_404(CommissionBid, pk=bid_id, commission=commission)
@@ -107,10 +108,19 @@ class CommissionAddView(FormView):
         commission = form.save(commit=False)
         commission.orderer = self.request.user
         commission.contractor = None
+        self.request.user.user_ext.wallet.change(commission.price_currency, -commission.price)
         commission.save()
         self.commission = commission
         form.save_m2m()
         return super(CommissionAddView, self).form_valid(form)
+
+
+def commission_accept_work(request, commission_id):
+    commission = get_object_or_404(Commission, pk=commission_id)
+    commission.status = 'F'
+    commission.contractor.user_ext.wallet.change(commission.price_currency, commission.price)
+    commission.save()
+    return redirect('commission-detail', pk=commission_id)
 
 
 class Error500View(TemplateView):
