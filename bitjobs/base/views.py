@@ -65,6 +65,8 @@ def commission_choose(request, pk, bid_id):
     commission = get_object_or_404(Commission, pk=pk)
     commission_bid = get_object_or_404(CommissionBid, pk=bid_id, commission=commission)
     commission.contractor = commission_bid.bidder
+    commission.bid = commission_bid
+    commission.status = 'A'
     commission.save()
     return redirect('commission-detail', pk=pk)
 
@@ -82,6 +84,7 @@ class CommissionBidView(FormView):
 
     def form_valid(self, form):
         commission_bid = form.save(commit=False)
+        commission_bid.commission.status = 'B'
         commission_bid.bidder = self.request.user
         commission_bid.save()
         self.commission = commission_bid.commission

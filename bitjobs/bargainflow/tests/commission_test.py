@@ -61,7 +61,7 @@ class CommissionApiTest(TestCase):
     def test_create_commission_ok(self):
         user_ids = [user.id for user in User.objects.all()]
         data_dict = {'description': 'very important task',
-                     'tags': ['dark-net']}
+                     'tags': ['dark-net'], 'title': 'Title'}
 
         url = reverse('bargainflow:commission-list')
 
