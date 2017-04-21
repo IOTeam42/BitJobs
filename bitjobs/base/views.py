@@ -47,9 +47,19 @@ class CommissionView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CommissionView, self).get_context_data(**kwargs)
         context['commission_bids'] = context['object'].commission_bids
-        context['form'] = CommissionBidForm(initial={'commission': context['object']})
+        commission = self.get_object()
+        context['form'] = self._get_commission_bid_form()
+        if commission.contractor:
+            context['chosen_bid'] = commission.commissionbid_set.get(bidder=commission.contractor)
         return context
 
+    def _get_commission_bid_form(self):
+        commission = self.get_object()
+        user_bid = commission.commissionbid_set.filter(bidder=self.request.user)
+        if user_bid.exists():
+            return CommissionBidForm(instance=user_bid.first())
+        else:
+            return CommissionBidForm(initial={'commission': commission})
 
 def commission_choose(request, pk, bid_id):
     commission = get_object_or_404(Commission, pk=pk)
@@ -93,6 +103,7 @@ class CommissionAddView(FormView):
     def form_valid(self, form):
         commission = form.save(commit=False)
         commission.orderer = self.request.user
+        commission.contractor = None
         commission.save()
         self.commission = commission
         form.save_m2m()

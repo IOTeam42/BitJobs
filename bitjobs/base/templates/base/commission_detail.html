@@ -29,19 +29,26 @@
             {% endfor %}
         </ul>
 
-        <ul id="bids">
-            {% for bid in commission_bids %}
-                <li>
-                    <div id="bidder">{% trans 'Bidder' %}: {{ bid.bidder }}</div>
-                    <div id="date">{% trans 'Date' %}: {{ bid.date_added }}</div>
-                    <div id="comment">{% trans 'Comment' %}: {{ bid.bidder_comment }}</div>
-                    {% if user == commission.orderer %}
-                        <a href={% url 'commission-choose' pk=commission.id bid_id=bid.id %}>
-                            {% trans 'Choose' %}</a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
+        {% if commission.contractor == None %}
+            <ul id="bids">
+                {% for bid in commission_bids %}
+                    <li>
+                        <div id="bidder">{% trans 'Bidder' %}: {{ bid.bidder }}</div>
+                        <div id="date">{% trans 'Date' %}: {{ bid.date_added }}</div>
+                        <div id="comment">{% trans 'Comment' %}: {{ bid.bidder_comment }}</div>
+                        {% if user == commission.orderer %}
+                            <a href={% url 'commission-choose' pk=commission.id bid_id=bid.id %}>
+                                {% trans 'Choose' %}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>{% trans 'Chosen bid:' %}</h2>
+            <div id="bidder">{% trans 'Bidder' %}: {{ chosen_bid.bidder }}</div>
+            <div id="date">{% trans 'Date' %}: {{ chosen_bid.date_added }}</div>
+            <div id="comment">{% trans 'Comment' %}: {{ chosen_bid.bidder_comment }}</div>
+        {% endif %}
 
         {% if user.is_authenticated and user != commission.orderer and commission.contractor == None %}
             <div id="commission-bid-form">

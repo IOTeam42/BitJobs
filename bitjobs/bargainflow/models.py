@@ -54,3 +54,6 @@ class CommissionBid(models.Model):
     bidder = models.ForeignKey(User, models.CASCADE)
     date_added = models.DateField(auto_now_add=True, null=False)
     bidder_comment = models.TextField(_("Comment"))
+
+    class Meta:
+        unique_together = ('bidder', 'commission')
