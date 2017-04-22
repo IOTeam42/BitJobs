@@ -40,6 +40,7 @@ class CommissionDashboardView(ListView):
         return queryset.distinct()
 
 
+@method_decorator(login_required, name='dispatch')
 class CommissionView(DetailView):
     model = Commission
     template_name = "base/commission_detail.html"
