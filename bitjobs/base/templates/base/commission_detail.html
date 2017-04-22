@@ -21,6 +21,7 @@
     <div id="content">
         <div id="title">{{ commission.title }}</div>
         <div id="desc">{% trans 'Description' %}: {{ commission.description }}</div>
+        <div id="price">{% trans "Price" %}: {{ commission.price }}</div>
         <ul id="tags">
             {% for tag in commission.tags.names %}
                 <li>
