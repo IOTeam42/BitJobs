@@ -9,11 +9,18 @@ class CommissionForm(forms.ModelForm):
         model = Commission
         fields = ['title', 'description', 'tags', 'price']
 
+        labels = {
+            'title': 'Tytuł',
+            'description': 'Opis oferty',
+            'tags': 'Tagi',
+            'price': 'Cena',
+        }
+
         widgets = {
             'tags': TextInput(attrs={"class" : "tags"}),
         }
         help_texts = {
-            'tags': _("Comma separated list of tags"),
+            'tags': _("Lista tagów oddzielonych przecinkami"),
         }
 
 

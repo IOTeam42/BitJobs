@@ -5,12 +5,14 @@
 $text-menu-color: white;
 $menu-element-color: white;
 $text-logo-color: white;
-$top-background-color: black;
+$top-background-color: darkslategray;
 
 $mobile-menu-width: 50vw;
 $mobile-menu-max-width: 150px;
 
 $nav-bar-height: 5vh;
+
+$logo-color: rgb(8,84,79);
 
 /* end variables */
 
@@ -19,16 +21,23 @@ $nav-bar-height: 5vh;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 3vw;
+    margin-right: 2.9vw;
     color: $text-logo-color;
+    background-color: $logo-color;
     text-align: center;
+    a {
+      padding: 0em;
+    }
 }
 
 nav {
     height: $nav-bar-height;
-    background: $top-background-color;
+    background: $logo-color;
     padding-top: 0;
     padding-bottom: 5em;
     overflow: hidden;
+    border-bottom: 1px solid $top-background-color;
+    border-top: 1px solid $top-background-color;
 
     .navWide {
         display: none;
@@ -39,18 +48,21 @@ nav {
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: space-around;
-            align-items: center;
+            align-items: stretch;
+            font-size: larger;
             li {
                 margin: 0.5em;
                 a {
                     display: block;
-                    padding: 1.5em;
+                    padding: 1em;
+                    //padding-left: 2em;
+                    //padding-right: 2em;
                     text-decoration: none;
                     color: lavenderblush;
                 }
                 a:hover {
-                    background-color: #555;
-                    color: white;
+                    //background-color: #555;
+                    color: orange;
                 }
             }
         }
@@ -68,7 +80,9 @@ nav {
           flex: 1;
           padding: 1em;
           background-color: $menu-element-color;
-          border: 1px solid $top-background-color;
+          border-bottom: 1px solid $top-background-color;
+          border-right: 1px solid $top-background-color;
+          border-left: 1px solid $top-background-color;
           width: $mobile-menu-width;
           max-width: $mobile-menu-max-width;
           text-align: center;
@@ -80,10 +94,15 @@ nav {
       }
     }
     #top-mobile {
-      margin-right: 3vw;
+      //margin-left: 10vw;
+      margin-right: 0.5vw;
       h1 {
         text-align: right;
         color: $text-logo-color;
+      }
+      a img {
+        display:block;
+        margin:auto;
       }
     }
 }
@@ -94,6 +113,10 @@ nav {
 
 .mobile-menu {
     display: none;
+}
+
+#meta-top {
+  background-color: $logo-color;
 }
 
 .expand {
@@ -109,5 +132,7 @@ nav {
     nav .mobile-nav {
         display: none;
     }
+
+
 
 }

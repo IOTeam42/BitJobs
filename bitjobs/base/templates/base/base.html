@@ -57,26 +57,28 @@
     <nav>
         <div class="navWide">
             <ul>
-                <li id="top"><h1>BitJobs</h1></li>
-                <li><a href="/">{% trans 'Homepage' %}</a></li>
+                <li id="top"><a href="/">
+                    <img src="{% static 'base/images/logo.png' %}" alt="Logo" height="77"/>
+                </a></li>
+                <li><a href="/">{% trans 'Strona główna' %}</a></li>
 
                 {% if not user.is_authenticated %}
 
                     <li><a href="{% url 'registration_register' %}">
-                        {% trans 'Registration' %}</a></li>
+                        {% trans 'Rejestracja' %}</a></li>
 
                     <li><a href="{% url 'auth_login' %}">
-                        {% trans 'Login' %}</a></li>
+                        {% trans 'Logowanie' %}</a></li>
 
                 {% else %}
                     <li><a href="{% url 'commission-dashboard' %}">
-                        {% trans 'All offers' %}</a></li>
+                        {% trans 'Oferty' %}</a></li>
 
                     <li><a href="{% url 'add-commission' %}">
-                        {% trans 'Add offer' %}</a></li>
+                        {% trans 'Dodaj ofertę' %}</a></li>
 
                     <li><a href="{% url 'auth_logout' %}">
-                        {% trans 'Logout' %}</a></li>
+                        {% trans 'Wyloguj' %}</a></li>
                 {% endif %}
                 <li>
                     <form action="{% url 'commission-dashboard' %}"
@@ -102,19 +104,23 @@
         <div class="mobile-nav">
             <i class="fa fa-bars fa-2x" id="menu-btn"></i>
             <div class="mobile-menu">
+                <div><a href="/">{% trans 'Strona główna' %}</a></div>
                 <div><a href="{% url 'registration_register' %}">
-                    {% trans 'Registration' %}</a></div>
+                    {% trans 'Rejestracja' %}</a></div>
                 <div><a href="{% url 'auth_login' %}">
-                    {% trans 'Login' %}</a></div>
+                    {% trans 'Logowanie' %}</a></div>
                 {% if user.is_authenticated %}
                     <div><a href="{% url 'auth_logout' %}">
-                        {% trans 'Logout' %}</a></div>
+                        {% trans 'Wyloguj' %}</a></div>
                 {% endif %}
-                <div><a href="/">{% trans 'Homepage' %}</a></div>
             </div>
 
         </div>
-        <div id="top-mobile"><h1>BitJobs</h1></div>
+        <div id="top-mobile">
+            <a href="/">
+                <img src="{% static 'base/images/logo.png' %}" alt="Logo" height="77"/>
+            </a>
+        </div>
     </nav>
 
 </div>
@@ -122,13 +128,19 @@
 {% block body %}
 {% endblock %}
 
+<br>
 
 <footer>
     <div class="flex-item">
-        <h3>BitJobs</h3>
+        <div>&copy; 2017, BitJobs Inc.</div>
     </div>
     <div class="flex-item">
-        Email us at: xd@wp.pl
+        <a href="/">
+            <img src="{% static 'base/images/symbol.png' %}" alt="Symbol" height="50"/>
+        </a>
+    </div>
+    <div class="flex-item">
+        Contact: <span class="mail">thebitjobs@gmail.com</span>
     </div>
 </footer>
 
