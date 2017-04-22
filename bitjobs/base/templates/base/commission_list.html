@@ -19,20 +19,22 @@
 {% block body %}
     <div id="content">
         {% if comm_list %}
-            <table id="commisions">
+            <table id="commissions">
+                    <!--
                     <col width="5">
                     <col width="90">
                     <col width="5">
+                    -->
                     <tr id="title">
-                        <td>{% trans 'Name' %}</td>
-                        <td>{% trans 'Description' %}</td>
-                        <td>{% trans 'Tags' %}</td>
+                        <th>{% trans 'Name' %}</th>
+                        <th>{% trans 'Description' %}</th>
+                        <th>{% trans 'Tags' %}</th>
                     </tr>
                 {% for comm in comm_list %}
-                    <tr>
-                        <td> <a href="{% url 'commission-detail' comm.id %}">
+                    <tr class='clickable-row' data-url="{% url 'commission-detail' comm.id %}">
+                        <td>
                             {{ comm.title }}
-                        </a></td>
+                        </td>
                         <td>{{ comm.description }}</td>
                         <td>
                             {% for tag in comm.tags.names %}

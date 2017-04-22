@@ -30,3 +30,11 @@ msgstr "Opis zlecenia"
 #: models.py:48
 msgid "Tags"
 msgstr "Tagi"
+
+#: models.py
+msgid "Title"
+msgstr "Tytuł"
+
+#: models.py
+msgid "Price"
+msgstr "Cena"

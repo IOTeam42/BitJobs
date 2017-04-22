@@ -29,11 +29,15 @@ msgstr "Logowanie"
 
 #: templates/base/base.html:54
 msgid "Add offer"
-msgstr "Dodaj ogłoszenie"
+msgstr "Dodaj ofertę"
+
+#: templates/base/base.html
+msgid "All offers"
+msgstr "Oferty"
 
 #: templates/base/base.html:55 templates/base/base.html:90
 msgid "Homepage"
-msgstr "Home"
+msgstr "Strona główna"
 
 #: templates/base/base.html:58 templates/base/base.html:88
 msgid "Logout"
@@ -47,3 +51,43 @@ msgstr "Szukaj"
 #: templates/registration/registration_form.html:30
 msgid "Submit"
 msgstr "Wyślij"
+
+#: templates/base/commission_list.html
+msgid "Name"
+msgstr "Nazwa"
+
+#: templates/base/commission_list.html
+msgid "Description"
+msgstr "Opis oferty"
+
+#: templates/base/commission_detail.html
+msgid "Bidder"
+msgstr "Oferent"
+
+#: templates/base/commission_detail.html
+msgid "Date"
+msgstr "Data"
+
+#: templates/base/commission_detail.html
+msgid "Comment"
+msgstr "Komentarz"
+
+#: templates/base/commission_detail.html
+msgid "Choose"
+msgstr "Wybierz"
+
+#: templates/base/commission_detail.html
+msgid "Chosen bid:"
+msgstr "Wybrana oferta"
+
+#: templates/base/commission_detail.html
+msgid "Accept"
+msgstr "Akceptuj"
+
+#: templates/base/commission_detail.html
+msgid "Deny"
+msgstr "Odrzuć"
+
+#: templates/base/commission_detail.html
+msgid "Done"
+msgstr "Zaakceptowane"

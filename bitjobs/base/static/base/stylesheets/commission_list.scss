@@ -1,3 +1,6 @@
+$number-of-columns: 3;
+$column-width: 100%/($number-of-columns + 0.5);
+
 @import 'margins.scss';
 
 #content {
@@ -6,27 +9,42 @@
 
 $table-border-color: #6e6e6e;
 
-#commisions {
+#commissions {
     width: 90%;
     margin: auto;
 
     tr {
         border: 1px solid $table-border-color;
 
-        td {
+        td, th {
+            width: $column-width;
             border: 1px solid $table-border-color;
             padding: 1vw;
             text-align: center;
         }
+
+        td:nth-child(2) {
+            width: (1.5)*$column-width;
+        }
+
+        th {
+            background-color: #cfcfcf;
+        }
+
     }
-    tr:nth-child(odd) {
-        background-color: #cdcdcd;
+    tr:nth-child(2n+3) {
+        background-color: #eeefff;
     }
-    tr:nth-child(even) {
-        background-color: #fafafa;
+    tr:nth-child(2n+2) {
+        background-color: #fbfbfb;
     }
-    tr#title {
-        font-size: 150%;
+    #title {
+        font-size: 130%;
         text-decoration: solid;
     }
+
+    tr:nth-child(n+2):hover {
+        background-color: #bde3e6;
+    }
+
 }
