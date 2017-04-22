@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'base',
     'moneyflow',
     'bargainflow',
+    'opinions',
 ]
 
 SITE_ID = 1
