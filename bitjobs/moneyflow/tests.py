@@ -1,21 +1,19 @@
 from django.test import TestCase
-from bitjobs.settings import CURRENCIES
+from django.conf import settings
 from moneyflow.models import Wallet, CurrencyAccount, CannotTransfer, MoneyTransaction
 
-
-# Create your tests here.
 
 class WalletTest(TestCase):
     def setUp(self):
         self.wallet = Wallet.objects.create()
         self.target = Wallet.objects.create()
-        self.currency = CURRENCIES[0]
+        self.currency = settings.CURRENCIES[0]
 
     def test_creating_wallet_creates_currency_accounts(self):
         numberOfCurrrencyAccounts = CurrencyAccount.objects.all().count()
         Wallet.objects.create()
         self.assertEquals(CurrencyAccount.objects.all().count(),
-                          numberOfCurrrencyAccounts + len(CURRENCIES))
+                          numberOfCurrrencyAccounts + len(settings.CURRENCIES))
 
     def test_saving_wallet_again_does_not_create_currency_accounts(self):
         numberOfCurrrencyAccounts = CurrencyAccount.objects.all().count()
