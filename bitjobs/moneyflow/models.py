@@ -8,7 +8,7 @@ from decimal import Decimal
 from bitjobs.settings import CURRENCIES_CHOICE
 from django.contrib.auth.models import User
 from django.core import validators
-from django.db import models
+from django.db import models, transaction
 from django.db.models.signals import post_save
 
 
@@ -22,14 +22,15 @@ def valid_currency(name):
 
 
 class Wallet(models.Model):
+    
     def save(self, *args, **kwargs):
         super(Wallet, self).save(*args, **kwargs)
         for (c, c2) in CURRENCIES_CHOICE:
-            if not self.currencyaccount_set.filter(currency=c).exists():
+            if not self.currencyaccount_set.all().filter(currency=c).exists():
                 CurrencyAccount.objects.create(currency=c, amount=0, wallet=self)
 
     def _currency_account_by_currency(self, currency):
-        return self.currencyaccount_set.filter(currency__exact=currency).first()
+        return self.currencyaccount_set.all().filter(currency__exact=currency).first()
 
     def money_by_currency(self, currency: str):
         if not valid_currency(currency):
@@ -76,3 +77,23 @@ class Customer(models.Model):
             Customer.objects.create(user=instance, wallet=wallet)
 
     post_save.connect(create_customer_data, sender=User)
+
+
+class MoneyTransaction(models.Model):
+    source_wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE,
+                                      related_name='source')
+    destination_wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE,
+                                           related_name='destination')
+    currency = models.CharField(choices=CURRENCIES_CHOICE, max_length=3)
+    # MOney send from source to destination
+    quantity = models.PositiveIntegerField(null=False, default=0)
+    date = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        super(MoneyTransaction, self).save(*args, **kwargs)
+        with transaction.atomic():
+            self.source_wallet.change(
+                self.currency, -self.quantity)
+            self.destination_wallet.change(
+                self.currency, self.quantity)
+
