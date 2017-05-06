@@ -36,7 +36,7 @@ class Commission(models.Model):
 
     orderer = models.ForeignKey(User, null=False, related_name='orderer')
     contractor = models.ForeignKey(User, null=True, related_name='contractor')
-    date_added = models.DateField(default=datetime.now(), null=False)
+    date_added = models.DateField(auto_now_add=True, null=False)
     bid = models.ForeignKey('CommissionBid', default=None,
                             null=True, related_name='bid')
     title = models.CharField(_("Title"), max_length=40)

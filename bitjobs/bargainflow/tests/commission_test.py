@@ -27,7 +27,8 @@ class CommissionApiTest(TestCase):
 
         test_commissions = [models(Commission, date_added=default_value,
                                    orderer=just(choice(users)),
-                                   status=default_value).example()
+                                   status=default_value,
+                                   price=default_value).example()
                             for _ in range(CommissionApiTest.COMMISSIONS_NUMBER)]
 
         CommissionApiTest.AUTH_USER = User.objects.create_user(

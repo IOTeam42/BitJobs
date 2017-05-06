@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_nose',
+    'djmoney',
     'bootstrap3',
     'registration',
     'fontawesome',
