@@ -40,6 +40,21 @@ class CommissionDashboardView(ListView):
         return queryset.distinct()
 
 
+class CommissionUserView(ListView):
+    template_name = "base/commission_user.html"
+    model = Commission
+    context_object_name = "comm_user"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Commission.objects.all()
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            queryset = queryset.filter(Q(orderer=pk))
+
+        return queryset.distinct()
+
+
 @method_decorator(login_required, name='dispatch')
 class CommissionView(DetailView):
     model = Commission

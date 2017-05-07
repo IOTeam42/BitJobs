@@ -10,6 +10,8 @@ urlpatterns = [
         name='commission-choose'),
     url(r'^oferty/$', views.CommissionDashboardView.as_view(),
         name="commission-dashboard"),
+    url(r'^oferty-uzytkownika/$', views.CommissionUserView.as_view(),
+        name="commission-user-dashboard"),
     url(r'^$', views.HomeView.as_view(),
         name="home"),
     url(r'^oferta/$', views.CommissionAddView.as_view(),
