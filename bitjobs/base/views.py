@@ -1,5 +1,6 @@
 from bargainflow.forms import CommissionForm, CommissionBidForm
 from bargainflow.models import Commission, CommissionBid
+from moneyflow.models import Customer
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, reverse
@@ -137,6 +138,15 @@ def commission_accept_work(request, commission_id):
     commission.contractor.user_ext.wallet.change(commission.price_currency, commission.price)
     commission.save()
     return redirect('commission-detail', pk=commission_id)
+
+
+class CustomerView(DetailView):
+    model = Customer
+    template_name = "base/customer_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CustomerView, self).get_context_data(**kwargs)
+        return context
 
 
 class Error500View(TemplateView):

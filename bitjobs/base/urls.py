@@ -26,6 +26,8 @@ urlpatterns = [
         name="error-403"),
     url(r'^404/', views.Error404View.as_view(),
         name="error-404"),
+    url(r'^uzytkownik/(?P<pk>[0-9]+)$', views.CustomerView.as_view(),
+        name="user-detail"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts_auth/', include('django.contrib.auth.urls')),
 ]

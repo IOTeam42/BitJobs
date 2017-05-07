@@ -66,7 +66,6 @@
                 <li><a href="/">{% trans 'Homepage' %}</a></li>
 
                 {% if not user.is_authenticated %}
-
                     <li><a href="{% url 'registration_register' %}">
                         {% trans 'Registration' %}</a></li>
 
@@ -76,6 +75,9 @@
                 {% else %}
                     <li><a href="{% url 'commission-dashboard' %}">
                         {% trans 'All offers' %}</a></li>
+
+                    <li><a href="{% url 'commission-user-dashboard' %}?pk={{ user.pk }}">
+                        {% trans 'My offers' %}</a></li>
 
                     <li><a href="{% url 'add-commission' %}">
                         {% trans 'Add offer' %}</a></li>
