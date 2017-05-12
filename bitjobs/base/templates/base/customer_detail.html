@@ -20,8 +20,14 @@
     <div id="content">
         <div id="customer-name">{{ customer.user }}</div>
         <div id="customer-offers">
-            <a href="{% url 'commission-user-dashboard' %}?pk={{ customer.user.pk }}">{% trans 'Offers' %}</a>
-            {% trans 'of user' %} {{ customer.user }}.
+            <a href="{% url 'commission-user-dashboard' %}?pk={{ customer.user.pk }}">
+                {% trans 'Current offers' %}
+            </a>
+        </div>
+        <div id="customer-opinions">
+            <a href="{% url 'customer-opinions' %}?pk={{ customer.user.pk }}">
+                {% trans 'Opinions about' %}
+            </a>
         </div>
     </div>
 {% endblock %}

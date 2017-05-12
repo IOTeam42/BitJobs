@@ -2,6 +2,7 @@ from bargainflow.forms import CommissionForm, CommissionBidForm
 from bargainflow.models import Commission, CommissionBid
 from moneyflow.models import Customer
 from opinions.forms import OpinionAddForm
+from opinions.models import Opinion
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, reverse
@@ -11,6 +12,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from registration.backends.hmac.views import RegistrationView
+from django.contrib.auth.models import User
 
 
 class RegisterView(RegistrationView):
@@ -67,6 +69,13 @@ class CommissionView(DetailView):
         context['commission_bids'] = context['object'].commission_bids
         commission = self.get_object()
         context['form'] = self._get_commission_bid_form()
+
+        user = self.request.user
+        if (user == commission.orderer or user == commission.contractor):
+            context['involved'] = True
+            if (commission in Opinion.list_possible_give(user)):
+                context['opinion_give'] = True
+
         if commission.contractor:
             context['chosen_bid'] = commission.commissionbid_set.get(bidder=commission.contractor)
         return context
@@ -150,6 +159,45 @@ class CustomerView(DetailView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
+class OpinionAddView(FormView):
+    template_name = "opinions/add_opinion.html"
+    form_class = OpinionAddForm
+
+    def __init__(self):
+        self.opinion = None
+        self.pk = 0
+        super(OpinionAddView, self).__init__()
+
+    def get_success_url(self):
+        return reverse('commission-detail', kwargs={'pk': self.pk})
+
+    def form_valid(self, form):
+        self.pk = self.kwargs['pk']
+        opinion = form.save(commit=False)
+        opinion.opinion_giver = self.request.user
+        opinion.commission = Commission.objects.get(pk=self.pk)
+        opinion.save()
+        self.opinion = opinion
+        form.save_m2m()
+        return super(OpinionAddView, self).form_valid(form)
+
+
+
+class OpinionUserView(ListView):
+    template_name = "opinions/customer_opinions.html"
+    model = Opinion
+    context_object_name = "opinion_list"
+    paginate_by = 10
+
+    def get_queryset(self):
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            return Opinion.list_current_about(User.objects.get(pk=pk))
+        else:
+            Opinion.objects.none()
+
+
 class Error500View(TemplateView):
     template_name = "500.html"
 
@@ -160,9 +208,3 @@ class Error403View(TemplateView):
 
 class Error404View(TemplateView):
     template_name = "404.html"
-
-
-@method_decorator(login_required, name='dispatch')
-class OpinionAddView(FormView):
-    template_name = "opinions/add_opinion.html"
-    form_class = OpinionAddForm

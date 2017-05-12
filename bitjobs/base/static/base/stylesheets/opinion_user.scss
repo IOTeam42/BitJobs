@@ -1,3 +1,5 @@
+@import 'margins.scss';
+
 $number-of-columns: 3;
 $column-width: 100%/($number-of-columns + 0.5);
 
@@ -9,10 +11,9 @@ $column-width: 100%/($number-of-columns + 0.5);
 
 $table-border-color: #6e6e6e;
 
-#commissions {
+#opinions {
     width: 90%;
     margin: auto;
-    margin-top: 2.5em;
 
     tr {
         border: 1px solid $table-border-color;
@@ -44,8 +45,42 @@ $table-border-color: #6e6e6e;
         text-decoration: solid;
     }
 
-    tr:nth-child(n+2):hover {
-        background-color: #bde3e6;
-    }
+}
 
+div#content {
+    @include content-margins(10vw);
+}
+
+div#title {
+    font-size: 300%;
+    text-decoration: solid;
+    text-align: center;
+    margin: 1ex;
+}
+
+div#desc {
+    border-radius: 10px;
+    border: 1px solid #1d3fda;
+    padding: 1ex;
+    font-size: 150%;
+    text-align: left;
+    margin-bottom: 1ex;
+}
+
+ul#tags {
+    list-style: none;
+    padding: 1ex;
+    font-size: 150%;
+    text-align: right;
+    margin-bottom: 1ex;
+
+    li {
+        float: right;
+        padding-left: 1.5ex;
+    }
+}
+
+div#chosen, div#choice {
+    padding: 1em;
+    margin: auto;
 }

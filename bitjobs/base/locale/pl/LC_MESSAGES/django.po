@@ -32,6 +32,10 @@ msgid "Add offer"
 msgstr "Dodaj ofertę"
 
 #: templates/base/base.html
+msgid "My offers"
+msgstr "Moje oferty"
+
+#: templates/base/base.html
 msgid "All offers"
 msgstr "Oferty"
 
@@ -115,3 +119,39 @@ msgstr "Odrzuć"
 #: templates/base/commission_detail.html
 msgid "Done"
 msgstr "Zaakceptowane"
+
+#: templates/base/customer_user.html
+msgid "Current offers"
+msgstr "Aktualne oferty"
+
+#: templates/base/customer_user.html
+msgid "Opinions about"
+msgstr "Dostępne opinie"
+
+#: templates/base/commission_user.html
+msgid "Offers of user"
+msgstr "Oferty użytkownika"
+
+#: templats/base/commission_detail.html
+msgid "Orderer"
+msgstr "Zleceniodawca"
+
+#: template/base/commission_detail.html
+msgid "Add opinion"
+msgstr "Dodaj opinię"
+
+#: template/base/commission_detail.html
+msgid "about contractor"
+msgstr "o wykonawcy"
+
+#: template/base/commission_detail.html
+msgid "about orderer"
+msgstr "o zleceniodawcy"
+
+#: template/opinions/customer_opinions.html
+msgid "Opinion giver"
+msgstr "Opiniodawca"
+
+#: template/base/commission_detail.html
+msgid "Opinion already given"
+msgstr "Opinia dodana"
