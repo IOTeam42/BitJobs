@@ -28,6 +28,8 @@ urlpatterns = [
         name="error-404"),
     url(r'^uzytkownik/(?P<pk>[0-9]+)$', views.CustomerView.as_view(),
         name="user-detail"),
+    url(r'^opiniuj/$', views.OpinionAddView.as_view(),
+        name="opinion-add"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts_auth/', include('django.contrib.auth.urls')),
 ]

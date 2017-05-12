@@ -1,6 +1,7 @@
 from bargainflow.forms import CommissionForm, CommissionBidForm
 from bargainflow.models import Commission, CommissionBid
 from moneyflow.models import Customer
+from opinions.forms import OpinionAddForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, reverse
@@ -159,3 +160,9 @@ class Error403View(TemplateView):
 
 class Error404View(TemplateView):
     template_name = "404.html"
+
+
+@method_decorator(login_required, name='dispatch')
+class OpinionAddView(FormView):
+    template_name = "opinions/add_opinion.html"
+    form_class = OpinionAddForm

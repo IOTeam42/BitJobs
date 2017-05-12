@@ -56,8 +56,32 @@ msgstr "Wyślij"
 msgid "Name"
 msgstr "Nazwa"
 
-#: templates/base/commission_list.html
+#:
 msgid "Description"
+msgstr "Opis"
+
+#: opinions/forms.py
+msgid "Opinion"
+msgstr "Treść opinii"
+
+#: opinions/models.py
+msgid "Rating"
+msgstr "Ocena"
+
+#: opinions/models.py
+msgid "Positive"
+msgstr "Pozytywna"
+
+#: opinions/models.py
+msgid "Negative"
+msgstr "Negatywna"
+
+#: opinions/models.py
+msgid "Undeclared"
+msgstr "Niezdeklarowana"
+
+#: templates/base/commission_list.html
+msgid "Offer description"
 msgstr "Opis oferty"
 
 #: templates/base/commission_detail.html
