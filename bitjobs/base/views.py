@@ -11,6 +11,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from moneyflow.forms import WithdrawForm
 from registration.backends.hmac.views import RegistrationView
 
 
@@ -139,11 +140,6 @@ class Error403View(TemplateView):
 
 class Error404View(TemplateView):
     template_name = "404.html"
-
-
-class WithdrawForm(forms.Form):
-    address = forms.CharField()
-    amount = forms.DecimalField()
 
 
 @method_decorator(login_required, name='dispatch')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-08 00:02+0200\n"
+"POT-Creation-Date: 2017-05-13 13:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,75 +19,135 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: templates/base/base.html:50 templates/base/base.html:83
-msgid "Registration"
-msgstr "Rejestracja"
+#: templates/403.html:15
+msgid "Forbidden"
+msgstr "Dostęp zabroniony"
 
-#: templates/base/base.html:52 templates/base/base.html:85
-msgid "Login"
-msgstr "Logowanie"
+#: templates/404.html:15
+msgid "Not Found"
+msgstr "Nie znaleziono treści"
 
-#: templates/base/base.html:54
-msgid "Add offer"
-msgstr "Dodaj ofertę"
+#: templates/500.html:15
+msgid "Internal Server Error"
+msgstr "Błąd serwera"
 
-#: templates/base/base.html
-msgid "All offers"
-msgstr "Oferty"
-
-#: templates/base/base.html:55 templates/base/base.html:90
+#: templates/base/base.html:66 templates/base/base.html:113
 msgid "Homepage"
 msgstr "Strona główna"
 
-#: templates/base/base.html:58 templates/base/base.html:88
+#: templates/base/base.html:71 templates/base/base.html:115
+msgid "Registration"
+msgstr "Rejestracja"
+
+#: templates/base/base.html:74 templates/base/base.html:121
+msgid "Login"
+msgstr "Logowanie"
+
+#: templates/base/base.html:78
+msgid "All offers"
+msgstr "Oferty"
+
+#: templates/base/base.html:81
+msgid "Add offer"
+msgstr "Dodaj ofertę"
+
+#: templates/base/base.html:84
+msgid "Your wallet"
+msgstr "Twój portfel"
+
+#: templates/base/base.html:87 templates/base/base.html:118
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: templates/base/base.html:67
+#: templates/base/base.html:98
 msgid "Search"
 msgstr "Szukaj"
 
-#: templates/base/commission_add.html:28 templates/registration/login.html:29
+#: templates/base/commission_add.html:29
+#: templates/base/commission_detail.html:71
+#: templates/registration/login.html:29
 #: templates/registration/registration_form.html:30
 msgid "Submit"
 msgstr "Wyślij"
 
-#: templates/base/commission_list.html
-msgid "Name"
-msgstr "Nazwa"
-
-#: templates/base/commission_list.html
+#: templates/base/commission_detail.html:23
+#: templates/base/commission_list.html:30
 msgid "Description"
 msgstr "Opis oferty"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:24
+msgid "Price"
+msgstr ""
+
+#: templates/base/commission_detail.html:37
+#: templates/base/commission_detail.html:50
 msgid "Bidder"
 msgstr "Oferent"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:38
+#: templates/base/commission_detail.html:51
 msgid "Date"
 msgstr "Data"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:39
+#: templates/base/commission_detail.html:52
 msgid "Comment"
 msgstr "Komentarz"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:42
 msgid "Choose"
 msgstr "Wybierz"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:48
 msgid "Chosen bid:"
 msgstr "Wybrana oferta"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:55
+msgid "Done"
+msgstr "Zaakceptowane"
+
+#: templates/base/commission_detail.html:58
 msgid "Accept"
 msgstr "Akceptuj"
 
-#: templates/base/commission_detail.html
+#: templates/base/commission_detail.html:59
 msgid "Deny"
 msgstr "Odrzuć"
 
-#: templates/base/commission_detail.html
-msgid "Done"
-msgstr "Zaakceptowane"
+#: templates/base/commission_list.html:29
+msgid "Name"
+msgstr "Nazwa"
+
+#: templates/base/commission_list.html:31
+msgid "Tags"
+msgstr "Tagi"
+
+#: templates/base/wallet.html:21
+msgid "Your balance: "
+msgstr "Stan konta"
+
+#: templates/base/wallet.html:22
+msgid "Deposit address"
+msgstr "Adresat przelewu"
+
+#: templates/base/wallet.html:23 templates/base/wallet.html:30
+msgid "Withdraw"
+msgstr "Wypłać"
+
+#: templates/registration/activation_email.txt:1
+msgid ""
+"Welcome to Bitjobs,\n"
+"\n"
+"to finish the registration, please click on the link below:"
+msgstr ""
+"Witamy w Bitjobs,\n"
+"\n"
+"aby zakończyć rejestrację, kliknij w link poniżej:"
+
+#: templates/registration/activation_email.txt:6
+msgid ""
+"Best wishes,\n"
+"The Bitjobs Team"
+msgstr ""
+"Pozdrawiamy, \n"
+"Zespół Bitjobs"
