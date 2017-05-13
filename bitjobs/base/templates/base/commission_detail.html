@@ -71,13 +71,13 @@
                 <h4>{% trans 'Done' %}</h4>
                 {% if user == commission.orderer and opinion_give %}
                     <h4>
-                        <a href="{% url 'opinion-add' commission.pk %}">
+                        <a href="{% url 'opinion-add' %}?pk={{ commission.pk }}">
                             {% trans 'Add opinion' %} {% trans 'about contractor' %}
                         </a>
                     </h4>
                 {% elif user == commission.contractor and opinion_give %}
                     <h4>
-                        <a href="{% url 'opinion-add' commission.pk %}">
+                        <a href="{% url 'opinion-add' %}?pk={{ commission.pk }}">
                             {% trans 'Add opinion' %} {% trans 'about orderer' %}
                         </a>
                     </h4>

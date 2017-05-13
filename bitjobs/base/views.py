@@ -169,11 +169,11 @@ class OpinionAddView(FormView):
         self.pk = 0
         super(OpinionAddView, self).__init__()
 
-    def get_success_url(self):
+    def get_success_url(self, **kwargs):
         return reverse('commission-detail', kwargs={'pk': self.pk})
 
     def form_valid(self, form):
-        self.pk = self.kwargs['pk']
+        self.pk = self.request.GET['pk']
         opinion = form.save(commit=False)
         opinion.opinion_giver = self.request.user
         opinion.commission = Commission.objects.get(pk=self.pk)
@@ -182,6 +182,11 @@ class OpinionAddView(FormView):
         form.save_m2m()
         return super(OpinionAddView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(OpinionAddView, self).get_context_data(**kwargs)
+        context['pk'] = self.request.GET['pk']
+        return context
+
 
 
 class OpinionUserView(ListView):
@@ -189,6 +194,11 @@ class OpinionUserView(ListView):
     model = Opinion
     context_object_name = "opinion_list"
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(OpinionUserView, self).get_context_data(**kwargs)
+        context['ratings'] = Opinion.RATINGS
+        return context
 
     def get_queryset(self):
         pk = self.request.GET.get('pk', None)

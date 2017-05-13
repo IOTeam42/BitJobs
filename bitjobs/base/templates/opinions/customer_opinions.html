@@ -29,15 +29,21 @@
                         <th>{% trans 'Rating' %}</th>
                     </tr>
                 {% for opinion in opinion_list %}
-                    <td>
-                        {{ opinion.opinion_giver }}
-                    </td>
-                    <td>
-                        {{ opinion.description }}
-                    </td>
-                    <td>
-                        {{ opinion.rating }}
-                    </td>
+                    <tr>
+                        <td>
+                            {{ opinion.opinion_giver }}
+                        </td>
+                        <td>
+                            {{ opinion.description }}
+                        </td>
+                        <td>
+                            {% for elem in ratings %}
+                                {% if elem.0 == opinion.rating %}
+                                    {{ elem.1 }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    <tr>
                 {% endfor %}
             </table>
 

@@ -18,10 +18,9 @@
 
 
 {% block body %}
-
 {% if user.is_authenticated %}
     <div id="opinion-add-form">
-        <form action="{% url 'opinion-add' %}?next=/" method="post" class="form">
+        <form action="{% url 'opinion-add' %}?pk={{ pk }}" method="post" class="form">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
