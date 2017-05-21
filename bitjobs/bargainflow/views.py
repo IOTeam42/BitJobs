@@ -8,6 +8,7 @@ from bargainflow.serializers import CommissionBidSerializer, \
     CommissionSerializer
 import json
 from django.http import HttpResponse
+from django.conf import settings
 
 
 class CommissionViewSet(viewsets.ModelViewSet):
@@ -30,7 +31,7 @@ class CommissionBidViewSet(viewsets.ModelViewSet):
 def get_commissions(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        commissions = Commission.objects.filter(description__icontains=q)[:5]
+        commissions = Commission.objects.filter(description__icontains=q)[:settings['AUTOCOMPLETE_LENGTH']]
         results = []
         for comm in commissions:
             commission_json = {'id': comm.id, 'label': comm.title,

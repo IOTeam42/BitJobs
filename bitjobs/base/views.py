@@ -125,7 +125,23 @@ class CommissionAddView(FormView):
 def commission_accept_work(request, commission_id):
     commission = get_object_or_404(Commission, pk=commission_id)
     commission.status = 'F'
+    # Wallet has no attribute change - must be fixed
     commission.contractor.user_ext.wallet.change(commission.price_currency, commission.price)
+    commission.save()
+    return redirect('commission-detail', pk=commission_id)
+
+
+def commission_done(request, commission_id):
+    commission = get_object_or_404(Commission, pk=commission_id)
+    commission.status = 'D'
+    commission.save()
+    return redirect('commission-detail', pk=commission_id)
+
+
+def commission_deny(request, commission_id):
+    commission = get_object_or_404(Commission, pk=commission_id)
+    commission.status = 'B'
+    commission.contractor = None
     commission.save()
     return redirect('commission-detail', pk=commission_id)
 

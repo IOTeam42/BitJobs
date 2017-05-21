@@ -259,3 +259,5 @@ _FORMATTER.add_sign_definition('default', LTC, prefix=u'LTC ')
 
 CURRENCIES = ['LTC']
 CURRENCIES_CHOICE = [('LTC', 'LTC')]
+
+AUTOCOMPLETE_LENGTH = 5

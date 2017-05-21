@@ -22,14 +22,16 @@ class Commission(models.Model):
     COMMISSION_STATUS = (
         ('O', 'Opened'),
         ('B', 'Bidded'),
-        ('A', 'Accepted'),
+        ('A', 'AcceptedNotDone'),
+        ('D', 'AcceptedDone'),
         ('F', 'Finished')
     )
 
     VALID_TRANSITION = defaultdict(list, {
         'O': ['B'],
         'B': ['A'],
-        'A': ['F', 'B'],
+        'A': ['D', 'B'],
+        'D': ['F'],
         'F': [],
     })
 

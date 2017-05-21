@@ -53,10 +53,19 @@
             </div>
             {% if commission.status == 'F' %}
                 <h3>{% trans 'Done' %}</h3>
-            {% elif user == commission.orderer %}
+            {% else %}
                 <div id="choice">
-                    <div><a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a></div>
-                    <div>{% trans 'Deny' %}</div>
+                    {% if user == commission.orderer %}
+                        {% if commission.status == 'D' %}
+                          <div><a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a></div>
+                        {% endif %}
+                        {% if commission.status == 'D' or commission.status == 'A' %}
+                        <div><a href="{% url 'commission-deny' commission.pk %}">{% trans 'Deny' %}</a></div>
+                        {% endif %}
+                    {% endif %}
+                    {% if commission.status == 'A' and user == commission.contractor %}
+                    <div><a href="{% url 'commission-done' commission.pk %}">{% trans 'Task done' %}</a></div>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endif %}
