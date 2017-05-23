@@ -47,6 +47,7 @@ class CommissionDashboardView(ListView):
         return queryset.distinct()
 
 
+@method_decorator(login_required, name='dispatch')
 class CommissionUserView(ListView):
     template_name = "base/commission_user.html"
     model = Commission
@@ -58,9 +59,40 @@ class CommissionUserView(ListView):
         pk = self.request.GET.get('pk', None)
         if pk is not None:
             queryset = queryset.filter(Q(orderer=pk))
+        else:
+            queryset = Commission.objects.none()
 
         return queryset.distinct()
 
+
+@method_decorator(login_required, name='dispatch')
+class CommissionUserBiddedView(ListView):
+    template_name = "base/commission_user_bidded.html"
+    model = Commission
+    context_object_name = "comm_user"
+    paginate_by = 10
+
+    def get_queryset(self):
+        bidded = CommissionBid.objects.all()
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            bidded = bidded.filter(bidder=pk)
+        else:
+            bidded = CommissionBid.objects.none()
+
+        bidded_pk = []
+        for x in bidded:
+            bidded_pk.append(x.commission.pk)
+        print(bidded_pk)
+        queryset = Commission.objects.all().filter(pk__in=bidded_pk)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super(CommissionUserBiddedView, self).get_context_data(**kwargs)
+        pk = self.request.GET.get('pk', None)
+        context['user_name'] = User.objects.all().filter(pk=pk)[0].username
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class CommissionView(DetailView):

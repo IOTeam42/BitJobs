@@ -12,6 +12,8 @@ urlpatterns = [
         name="commission-dashboard"),
     url(r'^oferty-uzytkownika/$', views.CommissionUserView.as_view(),
         name="commission-user-dashboard"),
+    url(r'^oferty-skomentowane/$', views.CommissionUserBiddedView.as_view(),
+        name="commission-user-bidded-dashboard"),
     url(r'^$', views.HomeView.as_view(),
         name="home"),
     url(r'^oferta/$', views.CommissionAddView.as_view(),

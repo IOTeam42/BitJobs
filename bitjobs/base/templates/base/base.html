@@ -84,6 +84,9 @@
                         <a class="dropdown-content" href="{% url 'commission-dashboard' %}">
                             {% trans 'All offers' %}
                         </a>
+                        <a class="dropdown-content" href="{% url 'commission-user-bidded-dashboard' %}?pk={{ user.pk }}">
+                            {% trans 'Bidded offers' %}
+                        </a>
                     </li>
 
                     <li><a href="{% url 'wallet-details' %}">
