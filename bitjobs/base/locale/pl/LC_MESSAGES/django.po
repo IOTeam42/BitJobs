@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-13 13:13+0200\n"
+"POT-Creation-Date: 2017-05-23 17:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,213 +19,259 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: templates/403.html:15
+#: base/templates/403.html:15
 msgid "Forbidden"
 msgstr "Dostęp zabroniony"
 
-#: templates/404.html:15
+#: base/templates/404.html:15
 msgid "Not Found"
 msgstr "Nie znaleziono treści"
 
-#: templates/500.html:15
+#: base/templates/500.html:15
 msgid "Internal Server Error"
 msgstr "Błąd serwera"
 
-#: templates/base/base.html:66 templates/base/base.html:113
+#: base/templates/base/base.html:66 base/templates/base/base.html:132
 msgid "Homepage"
 msgstr "Strona główna"
 
-#: templates/base/base.html:71 templates/base/base.html:115
+#: base/templates/base/base.html:70 base/templates/base/base.html:134
 msgid "Registration"
 msgstr "Rejestracja"
 
-#: templates/base/base.html:74 templates/base/base.html:121
+#: base/templates/base/base.html:73 base/templates/base/base.html:140
 msgid "Login"
 msgstr "Logowanie"
 
-#: templates/base/base.html:78
-#: templates/base/base.html:54
+#: base/templates/base/base.html:77
+msgid "Manage offers"
+msgstr "Zarządaj ofertami"
+
+#: base/templates/base/base.html:80
 msgid "Add offer"
 msgstr "Dodaj ofertę"
 
-#: templates/base/base.html
+#: base/templates/base/base.html:83
 msgid "My offers"
 msgstr "Moje oferty"
 
-#: templates/base/base.html
+#: base/templates/base/base.html:86
 msgid "All offers"
-msgstr "Oferty"
+msgstr "Wszystkie oferty"
 
-#: templates/base/base.html:81
-msgid "Add offer"
-msgstr "Dodaj ofertę"
+#: base/templates/base/base.html:89
+msgid "Bidded offers"
+msgstr "Oferty licytowane"
 
-#: templates/base/base.html:84
+#: base/templates/base/base.html:94
+msgid "Manage opinions"
+msgstr "Zarządaj opiniami"
+
+#: base/templates/base/base.html:97
+msgid "Give opinions"
+msgstr "Dodaj opinię"
+
+#: base/templates/base/base.html:103
 msgid "Your wallet"
 msgstr "Twój portfel"
 
-#: templates/base/base.html:87 templates/base/base.html:118
+#: base/templates/base/base.html:106 base/templates/base/base.html:137
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: templates/base/base.html:98
+#: base/templates/base/base.html:117
 msgid "Search"
 msgstr "Szukaj"
 
-#: templates/base/commission_add.html:29
-#: templates/base/commission_detail.html:71
-#: templates/registration/login.html:29
-#: templates/registration/registration_form.html:30
+#: base/templates/base/commission_add.html:29
+#: base/templates/base/commission_detail.html:104
+#: base/templates/opinions/add_opinion.html:28
+#: base/templates/registration/login.html:29
+#: base/templates/registration/registration_form.html:30
 msgid "Submit"
 msgstr "Wyślij"
 
-#: templates/base/commission_detail.html:23
-#: templates/base/commission_list.html:30
-#: templates/base/commission_list.html
-msgid "Name"
-msgstr "Nazwa"
-
-#:
+#: base/templates/base/commission_detail.html:23
+#: base/templates/base/commission_list.html:25
+#: base/templates/base/commission_user.html:26
+#: base/templates/base/commission_user_bidded.html:26
+#: base/templates/base/commission_user_opinion.html:26
+#: base/templates/opinions/customer_opinions.html:28
 msgid "Description"
 msgstr "Opis"
 
-#: opinions/forms.py
-msgid "Opinion"
-msgstr "Treść opinii"
-
-#: opinions/models.py
-msgid "Rating"
-msgstr "Ocena"
-
-#: opinions/models.py
-msgid "Positive"
-msgstr "Pozytywna"
-
-#: opinions/models.py
-msgid "Negative"
-msgstr "Negatywna"
-
-#: opinions/models.py
-msgid "Undeclared"
-msgstr "Niezdeklarowana"
-
-#: templates/base/commission_list.html
-msgid "Offer description"
-msgstr "Opis oferty"
-
-#: templates/base/commission_detail.html:24
+#: base/templates/base/commission_detail.html:24
 msgid "Price"
-msgstr ""
+msgstr "Cena"
 
-#: templates/base/commission_detail.html:37
-#: templates/base/commission_detail.html:50
-msgid "Bidder"
-msgstr "Oferent"
-
-#: templates/base/commission_detail.html:38
-#: templates/base/commission_detail.html:51
-msgid "Date"
-msgstr "Data"
-
-#: templates/base/commission_detail.html:39
-#: templates/base/commission_detail.html:52
-msgid "Comment"
-msgstr "Komentarz"
-
-#: templates/base/commission_detail.html:42
-msgid "Choose"
-msgstr "Wybierz"
-
-#: templates/base/commission_detail.html:48
-msgid "Chosen bid:"
-msgstr "Wybrana oferta"
-
-#: templates/base/commission_detail.html:55
-msgid "Done"
-msgstr "Zaakceptowane"
-
-#: templates/base/commission_detail.html:58
-msgid "Accept"
-msgstr "Akceptuj"
-
-#: templates/base/commission_detail.html:59
-msgid "Deny"
-msgstr "Odrzuć"
-
-#: templates/base/commission_list.html:29
-msgid "Name"
-msgstr "Nazwa"
-
-#: templates/base/commission_list.html:31
-msgid "Tags"
-msgstr "Tagi"
-
-#: templates/base/wallet.html:21
-msgid "Your balance: "
-msgstr "Stan konta"
-
-#: templates/base/wallet.html:22
-msgid "Deposit address"
-msgstr "Adresat przelewu"
-
-#: templates/base/wallet.html:23 templates/base/wallet.html:30
-msgid "Withdraw"
-msgstr "Wypłać"
-
-#: templates/registration/activation_email.txt:1
-msgid ""
-"Welcome to Bitjobs,\n"
-"\n"
-"to finish the registration, please click on the link below:"
-msgstr ""
-"Witamy w Bitjobs,\n"
-"\n"
-"aby zakończyć rejestrację, kliknij w link poniżej:"
-
-#: templates/registration/activation_email.txt:6
-msgid ""
-"Best wishes,\n"
-"The Bitjobs Team"
-msgstr ""
-"Pozdrawiamy, \n"
-"Zespół Bitjobs"
-
-#: templates/base/commission_detail.html
-msgid "Done"
-msgstr "Zaakceptowane"
-
-#: templates/base/customer_user.html
-msgid "Current offers"
-msgstr "Aktualne oferty"
-
-#: templates/base/customer_user.html
-msgid "Opinions about"
-msgstr "Dostępne opinie"
-
-#: templates/base/commission_user.html
-msgid "Offers of user"
-msgstr "Oferty użytkownika"
-
-#: templats/base/commission_detail.html
+#: base/templates/base/commission_detail.html:26
 msgid "Orderer"
 msgstr "Zleceniodawca"
 
-#: template/base/commission_detail.html
+#: base/templates/base/commission_detail.html:44
+msgid "Bidder"
+msgstr "Oferent"
+
+#: base/templates/base/commission_detail.html:49
+#: base/templates/base/commission_detail.html:67
+msgid "Date"
+msgstr "Data"
+
+#: base/templates/base/commission_detail.html:50
+#: base/templates/base/commission_detail.html:68
+msgid "Comment"
+msgstr "Komentarz"
+
+#: base/templates/base/commission_detail.html:53
+msgid "Choose"
+msgstr "Wybierz"
+
+#: base/templates/base/commission_detail.html:59
+msgid "Chosen bid:"
+msgstr "Wybrana oferta"
+
+#: base/templates/base/commission_detail.html:62
+#, fuzzy
+#| msgid "about contractor"
+msgid "Contractor"
+msgstr "o wykonawcy"
+
+#: base/templates/base/commission_detail.html:71
+msgid "Done"
+msgstr "Zaakceptowane"
+
+#: base/templates/base/commission_detail.html:75
+#: base/templates/base/commission_detail.html:81
 msgid "Add opinion"
 msgstr "Dodaj opinię"
 
-#: template/base/commission_detail.html
+#: base/templates/base/commission_detail.html:75
 msgid "about contractor"
 msgstr "o wykonawcy"
 
-#: template/base/commission_detail.html
+#: base/templates/base/commission_detail.html:81
 msgid "about orderer"
 msgstr "o zleceniodawcy"
 
-#: template/opinions/customer_opinions.html
+#: base/templates/base/commission_detail.html:86
+msgid "Opinion already given"
+msgstr "Opinia dodana"
+
+#: base/templates/base/commission_detail.html:91
+msgid "Accept"
+msgstr "Akceptuj"
+
+#: base/templates/base/commission_detail.html:92
+msgid "Deny"
+msgstr "Odrzuć"
+
+#: base/templates/base/commission_list.html:24
+#: base/templates/base/commission_user.html:25
+#: base/templates/base/commission_user_bidded.html:25
+#: base/templates/base/commission_user_opinion.html:25
+msgid "Name"
+msgstr "Nazwa"
+
+#: base/templates/base/commission_list.html:26
+#: base/templates/base/commission_user.html:27
+#: base/templates/base/commission_user_bidded.html:27
+#: base/templates/base/commission_user_opinion.html:27
+msgid "Tags"
+msgstr "Tagi"
+
+#: base/templates/base/commission_list.html:60
+msgid "No offers to show."
+msgstr "Nie ma ofert do wyświetlenia."
+
+#: base/templates/base/commission_user.html:22
+msgid "Offers of user"
+msgstr "Oferty użytkownika"
+
+#: base/templates/base/commission_user.html:61
+msgid "No offers made."
+msgstr "Nie stworzono ofert."
+
+#: base/templates/base/commission_user_bidded.html:22
+#, fuzzy
+#| msgid "Offers of user"
+msgid "Offers bidded by user"
+msgstr "Oferty użytkownika"
+
+#: base/templates/base/commission_user_bidded.html:61
+msgid "No offers bidded."
+msgstr "Nie stworzono żadnych ofert."
+
+#: base/templates/base/commission_user_opinion.html:22
+#, fuzzy
+#| msgid "Offers of user"
+msgid "Offers needing comment from user"
+msgstr "Oferty użytkownika"
+
+#: base/templates/base/commission_user_opinion.html:61
+#, fuzzy
+#| msgid "Opinion giver"
+msgid "No opinions to give."
+msgstr "Opiniodawca"
+
+#: base/templates/base/customer_detail.html:24
+msgid "Current offers"
+msgstr "Aktualne oferty"
+
+#: base/templates/base/customer_detail.html:29
+msgid "Opinions about"
+msgstr "Dostępne opinie"
+
+#: base/templates/base/main.html:18
+msgid "Site under costruction"
+msgstr "Strona w trakcie budowy"
+
+#: base/templates/base/wallet.html:21
+msgid "Your balance: "
+msgstr "Stan konta"
+
+#: base/templates/base/wallet.html:22
+msgid "Deposit address"
+msgstr "Adresat przelewu"
+
+#: base/templates/base/wallet.html:23 base/templates/base/wallet.html:30
+msgid "Withdraw"
+msgstr "Wypłać"
+
+#: base/templates/opinions/customer_opinions.html:27
 msgid "Opinion giver"
 msgstr "Opiniodawca"
 
-#: template/base/commission_detail.html
-msgid "Opinion already given"
-msgstr "Opinia dodana"
+#: base/templates/opinions/customer_opinions.html:29
+msgid "Rating"
+msgstr "Ocena"
+
+#~ msgid "Opinion"
+#~ msgstr "Treść opinii"
+
+#~ msgid "Positive"
+#~ msgstr "Pozytywna"
+
+#~ msgid "Negative"
+#~ msgstr "Negatywna"
+
+#~ msgid "Undeclared"
+#~ msgstr "Niezdeklarowana"
+
+#~ msgid "Offer description"
+#~ msgstr "Opis oferty"
+
+#~ msgid ""
+#~ "Welcome to Bitjobs,\n"
+#~ "\n"
+#~ "to finish the registration, please click on the link below:"
+#~ msgstr ""
+#~ "Witamy w Bitjobs,\n"
+#~ "\n"
+#~ "aby zakończyć rejestrację, kliknij w link poniżej:"
+
+#~ msgid ""
+#~ "Best wishes,\n"
+#~ "The Bitjobs Team"
+#~ msgstr ""
+#~ "Pozdrawiamy, \n"
+#~ "Zespół Bitjobs"

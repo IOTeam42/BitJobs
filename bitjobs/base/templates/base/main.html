@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block include_css %}
     {{ block.super }}
@@ -14,7 +15,7 @@
 <br>
 <div id="construction_excuse">
     <h2><a href="{% url 'commission-dashboard' %}">
-        Site under costruction
+        {% trans "Site under costruction" %}
     </a></h2>
     <h4>Sorry for inconvenience</h4>
 </div>
