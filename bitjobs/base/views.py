@@ -83,7 +83,7 @@ class CommissionUserBiddedView(ListView):
         bidded_pk = []
         for x in bidded:
             bidded_pk.append(x.commission.pk)
-        print(bidded_pk)
+
         queryset = Commission.objects.all().filter(pk__in=bidded_pk)
 
         return queryset.distinct()
