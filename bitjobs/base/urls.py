@@ -14,6 +14,8 @@ urlpatterns = [
         name="commission-user-dashboard"),
     url(r'^oferty-skomentowane/$', views.CommissionUserBiddedView.as_view(),
         name="commission-user-bidded-dashboard"),
+    url(r'^oferty-gotowe-opiniowania/$', views.CommissionUserToOpinionView.as_view(),
+        name="commission-user-to-comment-dashboard"),
     url(r'^$', views.HomeView.as_view(),
         name="home"),
     url(r'^oferta/$', views.CommissionAddView.as_view(),

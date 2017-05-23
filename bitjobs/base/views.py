@@ -94,6 +94,31 @@ class CommissionUserBiddedView(ListView):
         context['user_name'] = User.objects.all().filter(pk=pk)[0].username
         return context
 
+
+@method_decorator(login_required, name='dispatch')
+class CommissionUserToOpinionView(ListView):
+    template_name = "base/commission_user_opinion.html"
+    model = Commission
+    context_object_name = "comm_user"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Commission.objects.all()
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            queryset = queryset.filter(contractor=pk).filter(status='F')
+        else:
+            queryset = Commission.objects.none()
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super(CommissionUserToOpinionView, self).get_context_data(**kwargs)
+        pk = self.request.GET.get('pk', None)
+        context['user_name'] = User.objects.all().filter(pk=pk)[0].username
+        return context
+
+
 @method_decorator(login_required, name='dispatch')
 class CommissionView(DetailView):
     model = Commission

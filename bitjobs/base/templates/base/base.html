@@ -75,6 +75,7 @@
                 {% else %}
                     <li class="dropdown">
                         <span>{% trans 'Manage offers' %}</span>
+
                         <a class="dropdown-content" href="{% url 'add-commission' %}">
                             {% trans 'Add offer' %}
                         </a>
@@ -88,6 +89,15 @@
                             {% trans 'Bidded offers' %}
                         </a>
                     </li>
+
+                <li class="dropdown">
+                        <span>{% trans 'Manage opinions' %}</span>
+
+                        <a class="dropdown-content" href="{% url 'commission-user-to-comment-dashboard' %}?pk={{ user.pk }}">
+                            {% trans 'Give opinions' %}
+                        </a>
+                    </li>
+
 
                     <li><a href="{% url 'wallet-details' %}">
                         {% trans 'Your wallet' %}</a></li>
