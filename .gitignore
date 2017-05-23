@@ -114,3 +114,6 @@ staticfiles
 
 # Django compressor
 compress
+
+# pip dependancies
+src

@@ -1,5 +1,7 @@
 from bargainflow.forms import CommissionForm, CommissionBidForm
 from bargainflow.models import Commission, CommissionBid
+from cc.models import Wallet
+from cc.tasks import process_withdraw_transactions
 from moneyflow.models import Customer
 from opinions.forms import OpinionAddForm
 from opinions.models import Opinion
@@ -11,6 +13,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from moneyflow.forms import WithdrawForm
 from registration.backends.hmac.views import RegistrationView
 from django.contrib.auth.models import User
 
@@ -135,7 +138,9 @@ class CommissionAddView(FormView):
         commission = form.save(commit=False)
         commission.orderer = self.request.user
         commission.contractor = None
-        self.request.user.user_ext.wallet.change(commission.price_currency, -commission.price)
+        master_wallet = get_object_or_404(Wallet, label='master_wallet')
+        print(commission.price.__class__)
+        self.request.user.user_ext.wallet.transfer(commission.price, master_wallet)
         commission.save()
         self.commission = commission
         form.save_m2m()
@@ -218,3 +223,29 @@ class Error403View(TemplateView):
 
 class Error404View(TemplateView):
     template_name = "404.html"
+
+
+@method_decorator(login_required, name='dispatch')
+class WalletView(FormView):
+    template_name = 'base/wallet.html'
+    form_class = WithdrawForm
+
+    def form_valid(self, form):
+        wallet = self.request.user.user_ext.wallet
+        try:
+            wallet.withdraw(form.cleaned_data['address'], form.cleaned_data['amount'])
+        except ValueError as e:
+            form.add_error(e)
+            return self.form_valid(form)
+
+        process_withdraw_transactions(ticker=wallet.currency.ticker)
+
+        return super(WalletView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('wallet_detail')
+
+    def get_context_data(self, **kwargs):
+        context = super(WalletView, self).get_context_data();
+        context['wallet'] = self.request.user.user_ext.wallet
+        return context

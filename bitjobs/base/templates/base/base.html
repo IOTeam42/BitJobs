@@ -86,6 +86,9 @@
                         </a>
                     </li>
 
+                    <li><a href="{% url 'wallet-details' %}">
+                        {% trans 'Your wallet' %}</a></li>
+
                     <li><a href="{% url 'auth_logout' %}">
                         {% trans 'Logout' %}</a></li>
                 {% endif %}
