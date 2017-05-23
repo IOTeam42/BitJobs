@@ -73,14 +73,18 @@
                         {% trans 'Login' %}</a></li>
 
                 {% else %}
-                    <li><a href="{% url 'commission-dashboard' %}">
-                        {% trans 'All offers' %}</a></li>
-
-                    <li><a href="{% url 'commission-user-dashboard' %}?pk={{ user.pk }}">
-                        {% trans 'My offers' %}</a></li>
-
-                    <li><a href="{% url 'add-commission' %}">
-                        {% trans 'Add offer' %}</a></li>
+                    <li class="dropdown">
+                        <span>{% trans 'Manage offers' %}</span>
+                        <a class="dropdown-content" href="{% url 'add-commission' %}">
+                            {% trans 'Add offer' %}
+                        </a>
+                        <a class="dropdown-content" href="{% url 'commission-user-dashboard' %}?pk={{ user.pk }}">
+                            {% trans 'My offers' %}
+                        </a>
+                        <a class="dropdown-content" href="{% url 'commission-dashboard' %}">
+                            {% trans 'All offers' %}
+                        </a>
+                    </li>
 
                     <li><a href="{% url 'auth_logout' %}">
                         {% trans 'Logout' %}</a></li>
