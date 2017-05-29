@@ -60,7 +60,7 @@
             <div id="chosen">
                 <div id="bidder">
                     {% trans 'Contractor' %}:
-                    <a href="{% url 'user-detail' chosen_bid.contractor.pk %}">
+                    <a href="{% url 'user-detail' chosen_bid.bidder.pk %}">
                         {{ chosen_bid.bidder }}
                     </a>
                 </div>
