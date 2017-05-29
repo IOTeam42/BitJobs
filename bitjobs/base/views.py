@@ -2,7 +2,10 @@ from bargainflow.forms import CommissionForm, CommissionBidForm
 from bargainflow.models import Commission, CommissionBid
 from cc.models import Wallet
 from cc.tasks import process_withdraw_transactions
-from django import forms
+from cc import tasks
+from moneyflow.models import Customer
+from opinions.forms import OpinionAddForm
+from opinions.models import Opinion
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, reverse
@@ -13,6 +16,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from moneyflow.forms import WithdrawForm
 from registration.backends.hmac.views import RegistrationView
+from django.contrib.auth.models import User
 
 
 class RegisterView(RegistrationView):
@@ -45,6 +49,78 @@ class CommissionDashboardView(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
+class CommissionUserView(ListView):
+    template_name = "base/commission_user.html"
+    model = Commission
+    context_object_name = "comm_user"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Commission.objects.all()
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            queryset = queryset.filter(Q(orderer=pk))
+        else:
+            queryset = Commission.objects.none()
+
+        return queryset.distinct()
+
+
+@method_decorator(login_required, name='dispatch')
+class CommissionUserBiddedView(ListView):
+    template_name = "base/commission_user_bidded.html"
+    model = Commission
+    context_object_name = "comm_user"
+    paginate_by = 10
+
+    def get_queryset(self):
+        bidded = CommissionBid.objects.all()
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            bidded = bidded.filter(bidder=pk)
+        else:
+            bidded = CommissionBid.objects.none()
+
+        bidded_pk = []
+        for x in bidded:
+            bidded_pk.append(x.commission.pk)
+
+        queryset = Commission.objects.all().filter(pk__in=bidded_pk)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super(CommissionUserBiddedView, self).get_context_data(**kwargs)
+        pk = self.request.GET.get('pk', None)
+        context['user_name'] = User.objects.all().filter(pk=pk)[0].username
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class CommissionUserToOpinionView(ListView):
+    template_name = "base/commission_user_opinion.html"
+    model = Commission
+    context_object_name = "comm_user"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Commission.objects.all()
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            queryset = queryset.filter(contractor=pk).filter(status='F')
+        else:
+            queryset = Commission.objects.none()
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super(CommissionUserToOpinionView, self).get_context_data(**kwargs)
+        pk = self.request.GET.get('pk', None)
+        context['user_name'] = User.objects.all().filter(pk=pk)[0].username
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
 class CommissionView(DetailView):
     model = Commission
     template_name = "base/commission_detail.html"
@@ -54,6 +130,13 @@ class CommissionView(DetailView):
         context['commission_bids'] = context['object'].commission_bids
         commission = self.get_object()
         context['form'] = self._get_commission_bid_form()
+
+        user = self.request.user
+        if (user == commission.orderer or user == commission.contractor):
+            context['involved'] = True
+            if (commission in Opinion.list_possible_give(user)):
+                context['opinion_give'] = True
+
         if commission.contractor:
             context['chosen_bid'] = commission.commissionbid_set.get(bidder=commission.contractor)
         return context
@@ -125,8 +208,9 @@ class CommissionAddView(FormView):
 def commission_accept_work(request, commission_id):
     commission = get_object_or_404(Commission, pk=commission_id)
     commission.status = 'F'
-    # Wallet has no attribute change - must be fixed
+    tasks.refill_addresses_queue()
     commission.contractor.user_ext.wallet.change(commission.price_currency, commission.price)
+    query_transactions()
     commission.save()
     return redirect('commission-detail', pk=commission_id)
 
@@ -144,6 +228,64 @@ def commission_deny(request, commission_id):
     commission.contractor = None
     commission.save()
     return redirect('commission-detail', pk=commission_id)
+
+
+class CustomerView(DetailView):
+    model = Customer
+    template_name = "base/customer_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CustomerView, self).get_context_data(**kwargs)
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class OpinionAddView(FormView):
+    template_name = "opinions/add_opinion.html"
+    form_class = OpinionAddForm
+
+    def __init__(self):
+        self.opinion = None
+        self.pk = 0
+        super(OpinionAddView, self).__init__()
+
+    def get_success_url(self, **kwargs):
+        return reverse('commission-detail', kwargs={'pk': self.pk})
+
+    def form_valid(self, form):
+        self.pk = self.request.GET['pk']
+        opinion = form.save(commit=False)
+        opinion.opinion_giver = self.request.user
+        opinion.commission = Commission.objects.get(pk=self.pk)
+        opinion.save()
+        self.opinion = opinion
+        form.save_m2m()
+        return super(OpinionAddView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(OpinionAddView, self).get_context_data(**kwargs)
+        context['pk'] = self.request.GET['pk']
+        return context
+
+
+
+class OpinionUserView(ListView):
+    template_name = "opinions/customer_opinions.html"
+    model = Opinion
+    context_object_name = "opinion_list"
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(OpinionUserView, self).get_context_data(**kwargs)
+        context['ratings'] = Opinion.RATINGS
+        return context
+
+    def get_queryset(self):
+        pk = self.request.GET.get('pk', None)
+        if pk is not None:
+            return Opinion.list_current_about(User.objects.get(pk=pk))
+        else:
+            Opinion.objects.none()
 
 
 class Error500View(TemplateView):

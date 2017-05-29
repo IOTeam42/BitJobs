@@ -9,7 +9,7 @@
     {{ block.super }}
 
     <link rel="stylesheet" type="text/css"
-            href="{% static 'base/stylesheets/commission_list.scss'|compile %}">
+            href="{% static 'base/stylesheets/commission_user.scss'|compile %}">
 {% endblock %}
 
 {% block include_js %}
@@ -18,14 +18,15 @@
 
 {% block body %}
     <div id="content">
-        {% if comm_list %}
+        {% if comm_user %}
+            <h1>{% trans 'Offers of user' %} {{ comm_user.0.orderer }}</h1>
             <table id="commissions">
                     <tr id="title">
                         <th>{% trans 'Name' %}</th>
                         <th>{% trans 'Description' %}</th>
                         <th>{% trans 'Tags' %}</th>
                     </tr>
-                {% for comm in comm_list %}
+                {% for comm in comm_user %}
                     <tr class='clickable-row' data-url="{% url 'commission-detail' comm.id %}">
                         <td>
                             {{ comm.title }}
@@ -44,20 +45,20 @@
                 <div class="pagination">
                   <span class="page-links">
                     {% if page_obj.has_previous %}
-                      <a href="?desc={{ request.GET.desc }}&page={{ page_obj.previous_page_number }}">previous</a>
+                      <a href="?pk={{ request.GET.pk }}&page={{ page_obj.previous_page_number }}">previous</a>
                     {% endif %}
                       <span class="page-current">
                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                       </span>
                       {% if page_obj.has_next %}
-                        <a href="?desc={{ request.GET.desc }}&page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?pk={{ request.GET.pk }}&page={{ page_obj.next_page_number }}">next</a>
                       {% endif %}
                   </span>
                 </div>
             {% endif %}
 
         {% else %}
-            <h3>{% trans 'No offers to show.' %}</h3>
+            <h3>{% trans 'No offers made.' %}</h3>
         {% endif %}
     </div>
 {% endblock %}

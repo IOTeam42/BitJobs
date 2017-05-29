@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
 from bargainflow.models import Commission
+from django.utils.translation import ugettext_lazy as _
 
 
 class CannotCreateOpinion(Exception):
@@ -16,9 +17,9 @@ class CannotCreateOpinion(Exception):
 
 class Opinion(models.Model):
     RATINGS = [
-        ('P', 'Positive'),
-        ('N', 'Negative'),
-        ('U', 'Undeclared'),
+        ('P', _('Positive')),
+        ('N', _('Negative')),
+        ('U', _('Undeclared')),
     ]
 
     opinion_giver = models.ForeignKey(User, on_delete=models.CASCADE,

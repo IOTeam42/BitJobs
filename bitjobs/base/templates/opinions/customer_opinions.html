@@ -1,42 +1,49 @@
 {% extends 'base/base.html' %}
 
+{% load bootstrap3 %}
 {% load compile_static %}
 {% load static %}
-{% load bootstrap3 %}
 {% load i18n %}
 
 {% block include_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" type="text/css"
-            href="{% static 'base/stylesheets/commission_list.scss'|compile %}">
+     <link rel="stylesheet" type="text/css"
+        href="{% static 'base/stylesheets/opinion_user.scss'|compile %}">
 {% endblock %}
 
 {% block include_js %}
     {{ block.super }}
 {% endblock %}
 
+
 {% block body %}
+
+{% if user.is_authenticated %}
     <div id="content">
-        {% if comm_list %}
-            <table id="commissions">
+        {% if opinion_list %}
+            <table id="opinions">
                     <tr id="title">
-                        <th>{% trans 'Name' %}</th>
+                        <th>{% trans 'Opinion giver' %}</th>
                         <th>{% trans 'Description' %}</th>
-                        <th>{% trans 'Tags' %}</th>
+                        <th>{% trans 'Rating' %}</th>
                     </tr>
-                {% for comm in comm_list %}
-                    <tr class='clickable-row' data-url="{% url 'commission-detail' comm.id %}">
+                {% for opinion in opinion_list %}
+                    <tr>
                         <td>
-                            {{ comm.title }}
+                            {{ opinion.opinion_giver }}
                         </td>
-                        <td>{{ comm.description }}</td>
                         <td>
-                            {% for tag in comm.tags.names %}
-                            <a href="{% url 'commission-dashboard' %}?desc={{ tag }}">#{{ tag }} </a>
+                            {{ opinion.description }}
+                        </td>
+                        <td>
+                            {% for elem in ratings %}
+                                {% if elem.0 == opinion.rating %}
+                                    {{ elem.1 }}
+                                {% endif %}
                             {% endfor %}
                         </td>
-                    </tr>
+                    <tr>
                 {% endfor %}
             </table>
 
@@ -57,7 +64,11 @@
             {% endif %}
 
         {% else %}
-            <h3>{% trans 'No offers to show.' %}</h3>
+            <h3>Brak opinii do wyświetlenia</h3>
         {% endif %}
     </div>
+{% else %}
+<meta http-equiv="refresh" content="0; url={% url 'error-403' %}" />
+{% endif %}
+
 {% endblock %}

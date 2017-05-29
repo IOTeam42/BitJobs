@@ -16,26 +16,12 @@ $logo-color: rgb(8,84,79);
 
 /* end variables */
 
-
-#top {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 3vw;
-    margin-right: 2.9vw;
-    color: $text-logo-color;
-    background-color: $logo-color;
-    text-align: center;
-    a {
-      padding: 0em;
-    }
-}
-
 nav {
     height: $nav-bar-height;
     background: $logo-color;
     padding-top: 0;
-    padding-bottom: 5em;
-    overflow: hidden;
+    padding-bottom: 77px;
+    overflow: visible;
     border-bottom: 1px solid $top-background-color;
     border-top: 1px solid $top-background-color;
 
@@ -55,15 +41,38 @@ nav {
                 a {
                     display: block;
                     padding: 1em;
-                    //padding-left: 2em;
-                    //padding-right: 2em;
                     text-decoration: none;
                     color: lavenderblush;
                 }
                 a:hover {
-                    //background-color: #555;
                     color: orange;
                 }
+            }
+            #top {
+                margin: 0;
+                padding: 0;
+                a {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            .dropdown {
+                position: relative;
+                display: block;
+                margin: 0.5em;
+                padding: 1em;
+                color: lavenderblush;
+
+                .dropdown-content {
+                    display: none;
+                    position: relative;
+                    background-color: $top-background-color;
+                    padding: 1em 0 1em 0;
+                    text-align: center;
+                }
+            }
+            .dropdown:hover .dropdown-content {
+                display: block;
             }
         }
     }
@@ -133,6 +142,7 @@ nav {
         display: none;
     }
 
-
-
+    nav #top-mobile {
+        display: none;
+    }
 }

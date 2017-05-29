@@ -22,6 +22,12 @@
         <div id="title">{{ commission.title }}</div>
         <div id="desc">{% trans 'Description' %}: {{ commission.description }}</div>
         <div id="price">{% trans "Price" %}: {{ commission.price }}</div>
+        <div id="orderer">
+            {% trans "Orderer" %}:
+            <a href="{% url 'user-detail' commission.orderer.pk %}">
+                {{ commission.orderer }}
+            </a>
+        </div>
         <ul id="tags">
             {% for tag in commission.tags.names %}
                 <li>
@@ -34,7 +40,12 @@
             <ul id="bids">
                 {% for bid in commission_bids %}
                     <li>
-                        <div id="bidder">{% trans 'Bidder' %}: {{ bid.bidder }}</div>
+                        <div id="bidder">
+                            {% trans 'Bidder' %}:
+                            <a href="{% url 'user-detail' bid.bidder.pk %}">
+                                {{ bid.bidder }}
+                            </a>
+                        </div>
                         <div id="date">{% trans 'Date' %}: {{ bid.date_added }}</div>
                         <div id="comment">{% trans 'Comment' %}: {{ bid.bidder_comment }}</div>
                         {% if user == commission.orderer %}
@@ -47,26 +58,40 @@
         {% else %}
             <h3>{% trans 'Chosen bid:' %}</h3>
             <div id="chosen">
-                <div id="bidder">{% trans 'Bidder' %}: {{ chosen_bid.bidder }}</div>
+                <div id="bidder">
+                    {% trans 'Contractor' %}:
+                    <a href="{% url 'user-detail' chosen_bid.contractor.pk %}">
+                        {{ chosen_bid.bidder }}
+                    </a>
+                </div>
                 <div id="date">{% trans 'Date' %}: {{ chosen_bid.date_added }}</div>
                 <div id="comment">{% trans 'Comment' %}: {{ chosen_bid.bidder_comment }}</div>
             </div>
             {% if commission.status == 'F' %}
-                <h3>{% trans 'Done' %}</h3>
-            {% else %}
+                <h4>{% trans 'Done' %}</h4>
+                {% if user == commission.orderer and opinion_give %}
+                    <h4>
+                        <a href="{% url 'opinion-add' %}?pk={{ commission.pk }}">
+                            {% trans 'Add opinion' %} {% trans 'about contractor' %}
+                        </a>
+                    </h4>
+                {% elif user == commission.contractor and opinion_give %}
+                    <h4>
+                        <a href="{% url 'opinion-add' %}?pk={{ commission.pk }}">
+                            {% trans 'Add opinion' %} {% trans 'about orderer' %}
+                        </a>
+                    </h4>
+                {% elif involved %}
+                    <h4>
+                        {% trans 'Opinion already given' %}
+                    </h4>
+                {% endif %}
+            {% if user == commission.orderer %}
                 <div id="choice">
-                    {% if user == commission.orderer %}
-                        {% if commission.status == 'D' %}
-                          <div><a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a></div>
-                        {% endif %}
-                        {% if commission.status == 'D' or commission.status == 'A' %}
-                        <div><a href="{% url 'commission-deny' commission.pk %}">{% trans 'Deny' %}</a></div>
-                        {% endif %}
-                    {% endif %}
-                    {% if commission.status == 'A' and user == commission.contractor %}
-                    <div><a href="{% url 'commission-done' commission.pk %}">{% trans 'Task done' %}</a></div>
-                    {% endif %}
+                    <div><a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a></div>
+                    <div>{% trans 'Deny' %}</div>
                 </div>
+	    {% endif %}
             {% endif %}
         {% endif %}
 
