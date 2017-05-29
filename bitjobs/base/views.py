@@ -156,6 +156,8 @@ def commission_choose(request, pk, bid_id):
     commission.contractor = commission_bid.bidder
     commission.bid = commission_bid
     commission.status = 'A'
+    master_wallet = Wallet.objects.get(label='master_wallet')
+    commission.orderer.user_ext.wallet.transfer(commission.price, master_wallet)
     commission.save()
     return redirect('commission-detail', pk=pk)
 
@@ -208,9 +210,8 @@ class CommissionAddView(FormView):
 def commission_accept_work(request, commission_id):
     commission = get_object_or_404(Commission, pk=commission_id)
     commission.status = 'F'
-    tasks.refill_addresses_queue()
-    commission.contractor.user_ext.wallet.change(commission.price_currency, commission.price)
-    query_transactions()
+    master_wallet = Wallet.objects.get(label='master_wallet')
+    master_wallet.transfer(commission.price, commission.contractor.user_ext.wallet)
     commission.save()
     return redirect('commission-detail', pk=commission_id)
 
