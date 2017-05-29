@@ -87,7 +87,7 @@ class CommissionApiTest(TestCase):
         self.client.login(username=CommissionApiTest.USER_SECRET,
                           password=CommissionApiTest.USER_SECRET)
 
-        transitions = ['B', 'A', 'B', 'A', 'F']
+        transitions = ['B', 'A', 'B', 'A', 'D', 'F']
 
         for t in transitions:
             data_dict['status'] = t
@@ -134,7 +134,8 @@ class CommissionApiTest(TestCase):
 
         transitions = [('A', False), ('F', False), ('B', True),
                        ('O', False), ('F', False), ('A', True),
-                       ('O', False), ('F', True)]
+                       ('O', False), ('F', False), ('D', True),
+                       ('F', True)]
 
         for (t, is_ok) in transitions:
             data_dict['status'] = t
