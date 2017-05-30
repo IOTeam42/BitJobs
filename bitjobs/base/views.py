@@ -155,8 +155,6 @@ def commission_choose(request, pk, bid_id):
     commission.contractor = commission_bid.bidder
     commission.bid = commission_bid
     commission.status = 'A'
-    master_wallet = Wallet.objects.get(label='master_wallet')
-    commission.orderer.user_ext.wallet.transfer(commission.price, master_wallet)
     commission.save()
     return redirect('commission-detail', pk=pk)
 
