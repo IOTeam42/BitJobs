@@ -328,5 +328,5 @@ class WalletView(FormView):
 
 def check_deposit(request):
     query_transactions()
-    request.user.user_ext.wallet.recal_balance(True)
+    request.user.user_ext.wallet.recalc_balance(True)
     return redirect('wallet-details')
