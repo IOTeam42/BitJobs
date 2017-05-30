@@ -1,12 +1,9 @@
 from bargainflow.forms import CommissionForm, CommissionBidForm
 from bargainflow.models import Commission, CommissionBid
 from cc.models import Wallet
-from cc.tasks import process_withdraw_transactions
-from cc import tasks
-from moneyflow.models import Customer
-from opinions.forms import OpinionAddForm
-from opinions.models import Opinion
+from cc.tasks import process_withdraw_transactions, query_transactions
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, reverse
 from django.utils.decorators import method_decorator
@@ -15,8 +12,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from moneyflow.forms import WithdrawForm
+from moneyflow.models import Customer
+from opinions.forms import OpinionAddForm
+from opinions.models import Opinion
 from registration.backends.hmac.views import RegistrationView
-from django.contrib.auth.models import User
 
 
 class RegisterView(RegistrationView):
@@ -325,3 +324,9 @@ class WalletView(FormView):
         context = super(WalletView, self).get_context_data();
         context['wallet'] = self.request.user.user_ext.wallet
         return context
+
+
+def check_deposit(request):
+    query_transactions()
+    request.user.user_ext.wallet.recal_balance(True)
+    return redirect('wallet-details')

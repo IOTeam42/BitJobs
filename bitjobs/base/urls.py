@@ -45,4 +45,5 @@ urlpatterns = [
         name="opinion-add"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts_auth/', include('django.contrib.auth.urls')),
+    url(r'^sprawdz', views.check_deposit, name='check-deposit')
 ]
