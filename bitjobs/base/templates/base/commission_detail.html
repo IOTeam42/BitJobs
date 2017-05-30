@@ -91,7 +91,6 @@
             {% if user == commission.orderer %}
                 <div id="choice">
                     <div><a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a></div>
-                    <div>{% trans 'Deny' %}</div>
                 </div>
             {% endif %}
         {% endif %}
