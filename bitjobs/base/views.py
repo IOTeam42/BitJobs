@@ -206,6 +206,9 @@ class CommissionAddView(FormView):
 
 def commission_accept_work(request, commission_id):
     commission = get_object_or_404(Commission, pk=commission_id)
+    if commission.status == 'F':
+        redirect('commission-detail', pk=commission_id)
+
     commission.status = 'F'
     master_wallet = Wallet.objects.get(label='master_wallet')
     master_wallet.transfer(commission.price, commission.contractor.user_ext.wallet)
