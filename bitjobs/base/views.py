@@ -309,7 +309,7 @@ class WalletView(FormView):
     def form_valid(self, form):
         wallet = self.request.user.user_ext.wallet
         try:
-            wallet.withdraw(form.cleaned_data['address'], form.cleaned_data['amount'])
+            wallet.withdraw(form.cleaned_data['amount'], form.cleaned_data['address'])
         except ValueError as e:
             form.add_error(e)
             return self.form_valid(form)
