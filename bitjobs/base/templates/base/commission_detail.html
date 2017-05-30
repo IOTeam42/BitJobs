@@ -87,8 +87,7 @@
                     </h4>
                 {% endif %}
 
-            {% endif %}
-            {% if user == commission.orderer %}
+            {% elif user == commission.orderer %}
                 <div id="choice">
                     <div><a href="{% url 'commission-accept' commission.pk %}">{% trans 'Accept' %}</a></div>
                 </div>
