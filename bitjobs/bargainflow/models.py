@@ -11,39 +11,40 @@ made by other users to perform given task
 from __future__ import unicode_literals
 
 from collections import defaultdict
-from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from djmoney.models.fields import MoneyField
 from taggit.managers import TaggableManager
+
 
 class Commission(models.Model):
     COMMISSION_STATUS = (
         ('O', 'Opened'),
         ('B', 'Bidded'),
-        ('A', 'Accepted'),
+        ('A', 'AcceptedNotDone'),
+        ('D', 'AcceptedDone'),
         ('F', 'Finished')
     )
 
     VALID_TRANSITION = defaultdict(list, {
         'O': ['B'],
         'B': ['A'],
-        'A': ['F', 'B'],
+        'A': ['D', 'B'],
+        'D': ['F'],
         'F': [],
     })
 
     orderer = models.ForeignKey(User, null=False, related_name='orderer')
     contractor = models.ForeignKey(User, null=True, related_name='contractor')
-    date_added = models.DateField(default=datetime.now(), null=False)
+    date_added = models.DateField(auto_now_add=True, null=False)
     bid = models.ForeignKey('CommissionBid', default=None,
                             null=True, related_name='bid')
     title = models.CharField(_("Title"), max_length=40)
     description = models.TextField(_("Offer description"))
     status = models.CharField(max_length=1, choices=COMMISSION_STATUS,
                               default=COMMISSION_STATUS[0][0])
-    price = MoneyField(max_digits=10, decimal_places=2, default_currency='PLN')
+    price = models.DecimalField(max_digits=10, decimal_places=6, default=0)
     tags = TaggableManager(_("Tags"))
 
     @property

@@ -7,10 +7,19 @@
 {% load i18n %}
 {% load compress %}
 
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>BitJobs</title>
+    <style type="text/css">
+        body {
+         background: url('{% static "base/images/header-bg.jpg" %}') no-repeat center center fixed;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+        }
+    </style>
 
 
     {% block include_css %}
@@ -66,7 +75,6 @@
                 <li><a href="/">{% trans 'Homepage' %}</a></li>
 
                 {% if not user.is_authenticated %}
-
                     <li><a href="{% url 'registration_register' %}">
                         {% trans 'Registration' %}</a></li>
 
@@ -74,11 +82,34 @@
                         {% trans 'Login' %}</a></li>
 
                 {% else %}
-                    <li><a href="{% url 'commission-dashboard' %}">
-                        {% trans 'All offers' %}</a></li>
+                    <li class="dropdown">
+                        <span>{% trans 'Manage offers' %}</span>
 
-                    <li><a href="{% url 'add-commission' %}">
-                        {% trans 'Add offer' %}</a></li>
+                        <a class="dropdown-content" href="{% url 'add-commission' %}">
+                            {% trans 'Add offer' %}
+                        </a>
+                        <a class="dropdown-content" href="{% url 'commission-user-dashboard' %}?pk={{ user.pk }}">
+                            {% trans 'My offers' %}
+                        </a>
+                        <a class="dropdown-content" href="{% url 'commission-dashboard' %}">
+                            {% trans 'All offers' %}
+                        </a>
+                        <a class="dropdown-content" href="{% url 'commission-user-bidded-dashboard' %}?pk={{ user.pk }}">
+                            {% trans 'Bidded offers' %}
+                        </a>
+                    </li>
+
+                <li class="dropdown">
+                        <span>{% trans 'Manage opinions' %}</span>
+
+                        <a class="dropdown-content" href="{% url 'commission-user-to-comment-dashboard' %}?pk={{ user.pk }}">
+                            {% trans 'Give opinions' %}
+                        </a>
+                    </li>
+
+
+                    <li><a href="{% url 'wallet-details' %}">
+                        {% trans 'Your wallet' %}</a></li>
 
                     <li><a href="{% url 'auth_logout' %}">
                         {% trans 'Logout' %}</a></li>
@@ -132,8 +163,6 @@
 {% block body %}
 {% endblock %}
 
-<br>
-
 <footer>
     <div class="flex-item">
         <div>&copy; 2017, BitJobs Inc.</div>
@@ -144,7 +173,7 @@
         </a>
     </div>
     <div class="flex-item">
-        Contact: <span class="mail">thebitjobs@gmail.com</span>
+        Contact: <a class="mail" href="mailto:thebitjobs@gmail.com">thebitjobs@gmail.com</a>
     </div>
 </footer>
 

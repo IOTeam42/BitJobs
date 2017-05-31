@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block include_css %}
     {{ block.super }}
@@ -11,11 +12,11 @@
 {% endblock %}
 
 {% block body %}
-<br>
-<div id="construction_excuse">
-    <h2><a href="{% url 'commission-dashboard' %}">
-        Site under costruction
-    </a></h2>
-    <h4>Sorry for inconvenience</h4>
-</div>
+<h2>
+  {% if user.is_authenticated %}
+  Zapraszamy do <a href="{% url 'commission-dashboard' %}">wymiany ofert</a>!
+  {% else %}
+  Zapraszamy do <a href="{% url 'registration' %}">rejestracji</a> i wymiany ofert!
+  {% endif %}
+</h2>
 {% endblock %}

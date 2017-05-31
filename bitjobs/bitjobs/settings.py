@@ -17,7 +17,6 @@ import warnings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = 'jxmu@qw*@+oyh0w$8uei1flru!djvtaja3gk6e*fd6l69%$)fy'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_nose',
+    'cc',
+    'djmoney',
     'bootstrap3',
     'registration',
     'fontawesome',
@@ -92,7 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bitjobs.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
@@ -102,7 +101,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -122,20 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -230,8 +222,9 @@ LOCALE_PATHS = [
 
 if os.environ.get('heroku') is not None:
     import dj_database_url
+
     DATABASES['default'] = dj_database_url.config()
-    DEBUG =  False
+    DEBUG = False
     ALLOWED_HOSTS = ['*']
     SECRET_KEY = os.environ.get('secret_key')
 
@@ -251,6 +244,16 @@ else:
     except:
         warnings.warn("local_settings.py file is not present. It "
                       "could contain database settings for postgres")
+
 # django-money configuration
-CURRENCIES = ['PLN', 'USD']
-CURRENCIES_CHOICE = [('PLN', 'PLN'), ('USD', 'USD')]
+import moneyed
+from moneyed.localization import _FORMATTER
+from decimal import ROUND_HALF_EVEN
+
+LTC = moneyed.add_currency('LTC', '068', 'Litecoin', ())
+_FORMATTER.add_sign_definition('default', LTC, prefix=u'LTC ')
+
+CURRENCIES = ['LTC']
+CURRENCIES_CHOICE = [('LTC', 'LTC')]
+
+AUTOCOMPLETE_LENGTH = 5
